@@ -1,12 +1,11 @@
 
 #include "cub3d.h"
 
-void	draw_line(t_map *md, int x, int height, int side, int hit)
+void	draw_line(t_map *md, int x, int height, int side)
 {
 	int			y;
 	uint32_t	color;
 
-	(void)hit;
 	if (side)
 		color = 0xFF0000FF;
 	else
