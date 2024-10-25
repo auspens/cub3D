@@ -18,7 +18,7 @@ int	check_valid_map(t_map *mapdata)
 	res = check_other_lines(mapdata);
 	if (res != 0)
 		return (res);
-	if (!mapdata->px || !mapdata->py)
+	if (!mapdata->player.x || !mapdata->player.y)
 		return (4);
 	return (0);
 }
@@ -73,10 +73,10 @@ int	check_char(t_map *mapdata, char *line, int idx, int lnum)
 		return (1);
 	if (line[idx] == 'P')
 	{
-		if (mapdata->px != 0)
+		if (mapdata->player.x != 0)
 			return (2);
-		mapdata->px = (double)idx + 0.5;
-		mapdata->py = (double)lnum + 0.5;
+		mapdata->player.x = (double)idx + 0.5;
+		mapdata->player.y = (double)lnum + 0.5;
 		line[idx] = '0';
 	}
 	else if (line[idx] != '0' && line[idx] != '1')

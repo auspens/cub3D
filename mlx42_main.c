@@ -42,12 +42,12 @@ int	open_mapfile(char *path)
 void	init_mapdata(t_map *mapdata)
 {
 	mapdata->map = NULL;
-	mapdata->px = 0;
-	mapdata->py = 0;
-	mapdata->dirx = 0;
-	mapdata->diry = -1;
-	mapdata->planex = 1;
-	mapdata->planey = 0; //perpendicular to dir, and shorter
+	mapdata->player.x = 0;
+	mapdata->player.y = 0;
+	mapdata->dir.x = 0;
+	mapdata->dir.y = -1;
+	mapdata->plane.x = 1;
+	mapdata->plane.y = 0; //perpendicular to dir, and shorter
 	mapdata->mlx = NULL;
 	mapdata->txtr = NULL;
 	mapdata->img = NULL;
@@ -95,7 +95,7 @@ void	close_free_exit(int fd, char **map, char *line, int error)
 	else if (error == 2)
 		ft_printf("Error: there can be only 1 player (P)\n");
 	else if (error == 3)
-		ft_printf("Error: only characters 0, 1, 2, 3, 4 and P are allowed\n");
+		ft_printf("Error: only characters 0, 1 and P are allowed\n");
 	else if (error == 4)
 		ft_printf("Error: there has to be 1 player (P)\n");
 	exit(EXIT_FAILURE);
