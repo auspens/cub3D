@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/23 16:23:12 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:18:56 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <X11/Xatom.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <float.h>
 
 # ifndef SCRNWIDTH
 #  define SCRNWIDTH 640
@@ -37,19 +38,34 @@ typedef enum sides{
 	NORTH,
 	SOUTH,
 	EAST,
-	WEST,
-	CEILING,
-	FLOOR
+	WEST
 }	t_sides;
 
-typedef struct coords {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-}	t_coords;
+typedef struct s_coord
+{
+	double	x;
+	double	y;
+}	t_coord;
+
+typedef struct s_dda
+{
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_x;
+	double		delta_y;
+	int			step_x;
+	int			step_y;
+	t_sides		side;
+	int			hit;
+}	t_dda;
+
+typedef struct s_ray
+{
+	t_coord	dir;
+	t_coord	origin;
+}	t_ray;
 
 typedef struct img_data {
 	void	*mlx_img;
@@ -57,45 +73,65 @@ typedef struct img_data {
 	int		bpp;
 	int		img_line_len;
 	int		img_endian;
+	int		width;
+	int		height;
 }	t_img_data;
+
+typedef struct s_tx
+{
+	t_img_data		*n;
+	t_img_data		*s;
+	t_img_data		*e;
+	t_img_data		*w;
+}		t_tx;
 
 typedef struct data {
 	void		*mlx;
 	void		*mlx_win;
 	t_img_data	*img;
+	t_tx		*txt;
+	int			color_ceiling;
+	int			color_floor;
+	t_coord		player;
+	t_coord		dir;
+	t_coord		plane;
+	char		**map;
 }	t_data;
 
-typedef struct data_x{
-	double	cam_x;
-	double	ray_x;
-	double	ray_y;
-	double	del_dist_x;
-	double	del_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		map_x;
-	int		map_y;
-	double	perp_wall_dist;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	t_sides	side;
-}	t_data_x;
 
-int			**parce_map(void);
-t_data		*init_data(void);
-t_img_data	*new_img(t_data *data);
+/*read_file*/
+int			open_mapfile(char *path);
+void		get_map(t_data *data, char *line, int fd, int size);
+void		get_input(t_data *data, int fd, int size);
+
+/*clean_exit*/
+void		clean_exit(int code, char *msg, t_data *data);
+void		free_data(t_data *data);
+void		free_map(char **map);
+
+/*check_map*/
+int			check_valid_map(t_data *data);
+int			check_other_lines(t_data *data, int width, int height);
+int			check_last_line(t_data *data, int num, int width);
+int			check_char(t_data *data, char *line, int idx, int lnum, int width);
+
+/*draw map*/
+void		draw_frame(t_data *md);
+
+/*map_utils*/
+void		map_error(int fd, t_data *data, char *line, int error);
+
+/*image_render*/
+void		draw_line_to_img(t_data *data, t_sides side, int x, int height);
+
+/*utils*/
+int			gen_trgb(int opacity, int red, int green, int blue);
 void		my_pixel_put(t_img_data *data, int x, int y, int color);
-int			get_color(t_sides side);
-int			render_loop(t_data *data, t_coords *coords, int **map);
+t_img_data	*new_img(t_data *data);
+t_data		*init_data(void);
 
-/*calculations for x*/
-void		calc_step_and_side_dist(t_coords *coords, t_data_x *data_x);
-void		calc_perp_wall_dist(t_data_x *data_x);
-void		calc_data_x(t_coords *coords, t_data_x *data_x, int x);
-void		calc_line_height(t_data_x *data_x);
+/*texture_utils*/
+int			get_txt_color(t_img_data img, t_sides side, int x, int y);
+t_img_data	*get_texture(char *addr, t_data *data);
 
 #endif

@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inits.c                                            :+:      :+:    :+:   */
+/*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:47:07 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/23 11:52:32 by auspensk         ###   ########.fr       */
+/*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
+/*   Updated: 2024/10/27 11:28:52 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_data	*init_data(void)
+void	free_map(char **map)
 {
-	t_data	*data;
+	int	idx;
 
-	data = ft_calloc (1, sizeof(t_data *));
-	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, SCRNWIDTH, SCRNHEIGHT, "cub3D");
-	data->img = new_img(data);
-	return (data);
+	idx = 0;
+	if (!map)
+		return ;
+	while (map[idx])
+		free(map[idx++]);
+	free(map);
+}
+
+void	free_data(t_data *data)
+{
+	if (data->map)
+		free_map(data->map);
+	/* free and close the rest*/
+}
+
+void	clean_exit(int code, char *msg, t_data *data)
+{
+	if (msg)
+		write (2, msg, ft_strlen(msg));
+	if (data)
+		free_data(data);
+	exit (code);
 }

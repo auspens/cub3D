@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/23 16:15:24 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:54:00 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,17 @@ int	gen_trgb(int opacity, int red, int green, int blue)
 	return (opacity << 24 | red << 16 | green << 8 | blue);
 }
 
-/*this is to be updated to take parameters from provided map*/
-int	get_color(t_sides side)
+t_data	*init_data(void)
 {
-	if (side == CEILING)
-		return (gen_trgb(255, 225, 30, 0));
-	if (side == SOUTH)
-		return (gen_trgb(255, 255, 120, 0));
-	if (side == NORTH)
-		return (gen_trgb(255, 0, 162, 255));
-	if (side == EAST)
-		return (gen_trgb(255, 255, 255, 0));
-	if (side == WEST)
-		return (gen_trgb(255, 255, 0, 255));
-	if (side == FLOOR)
-		return (gen_trgb(255, 0, 255, 255));
-	return (gen_trgb(255, 255, 255, 255));
+	t_data	*data;
+
+	data = ft_calloc (1, sizeof(t_data *));
+	data->mlx = mlx_init();
+	data->mlx_win = mlx_new_window(data->mlx, SCRNWIDTH, SCRNHEIGHT, "cub3D");
+	data->img = new_img(data);
+	data->dir.y = -1; //temp fix, will be correctly set in check_map
+	data->plane.x = 1; // temp fix, will be correctly set in check_map
+	return (data);
 }
 
 t_img_data	*new_img(t_data *data)
@@ -50,6 +45,8 @@ t_img_data	*new_img(t_data *data)
 	t_img_data	*img_data;
 
 	img_data = ft_calloc(1, sizeof(t_img_data *));
+	if (!img_data)
+		clean_exit(1, "Failed to malloc", data);
 	img_data->mlx_img = mlx_new_image(data->mlx, SCRNWIDTH, SCRNHEIGHT);
 	img_data->img_addr = mlx_get_data_addr(img_data->mlx_img, &(img_data->bpp),
 			&(img_data->img_line_len), &(img_data->img_endian));

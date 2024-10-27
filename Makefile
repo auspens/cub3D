@@ -16,12 +16,15 @@ LIBFT_NAME = libft.a
 
 LIBFT = $(LIBFT_PATH)$(LIBFT_NAME)
 
-SRCS = calculations_for_x.c \
+SRCS = check_map.c \
 		image_render.c \
-		inits.c \
+		read_file.c \
 		main.c \
-		parce_map.c \
-		utils.c
+		clean_exit.c \
+		utils.c \
+		map_utils.c \
+		texture_utils.c \
+		draw_map.c \
 
 OBJS = $(SRCS:.c=.o)
 
