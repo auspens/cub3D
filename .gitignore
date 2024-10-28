@@ -1,0 +1,12 @@
+#the project exec
+cub3D
+
+#textures folder
+textures/
+
+#all object files
+*.o
+
+#all map files
+*.cub
+
