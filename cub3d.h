@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/27 16:18:56 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:22:08 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,7 @@ void		free_data(t_data *data);
 void		free_map(char **map);
 
 /*check_map*/
-int			check_valid_map(t_data *data);
-int			check_other_lines(t_data *data, int width, int height);
-int			check_last_line(t_data *data, int num, int width);
-int			check_char(t_data *data, char *line, int idx, int lnum, int width);
+void		check_valid_map(t_data *data);
 
 /*draw map*/
 void		draw_frame(t_data *md);
@@ -129,9 +126,13 @@ int			gen_trgb(int opacity, int red, int green, int blue);
 void		my_pixel_put(t_img_data *data, int x, int y, int color);
 t_img_data	*new_img(t_data *data);
 t_data		*init_data(void);
+void		rotate_vector(t_coord src, t_coord *dst, double angle);
 
 /*texture_utils*/
 int			get_txt_color(t_img_data img, t_sides side, int x, int y);
 t_img_data	*get_texture(char *addr, t_data *data);
+
+/*hooks*/
+void		set_hooks(t_data *data);
 
 #endif

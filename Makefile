@@ -25,6 +25,7 @@ SRCS = check_map.c \
 		map_utils.c \
 		texture_utils.c \
 		draw_map.c \
+		hooks.c
 
 OBJS = $(SRCS:.c=.o)
 

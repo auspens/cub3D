@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-void	init_txtr(t_map *md, t_tx *t)
+void	init_txtr(t_data *md, t_tx *t)
 {
 	t->n = mlx_load_png("./textures/N.png");
 	t->s = mlx_load_png("./textures/S.png");

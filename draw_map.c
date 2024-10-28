@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/27 15:55:32 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:53:11 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_dda	init_dda(t_coord player)
 	dda.side_dist_y = 0;
 	dda.step_x = 1;
 	dda.step_y = 1;
-	dda.hit = 0;
 	return (dda);
 }
 
@@ -68,6 +67,7 @@ void	get_deltas(t_ray ray, t_dda *dda)
 
 void	perform_dda(t_dda *dda, char **map)
 {
+	dda->hit = 0;
 	while (dda->hit == 0)
 	{
 		if (dda->side_dist_x < dda->side_dist_y)
@@ -87,6 +87,20 @@ void	perform_dda(t_dda *dda, char **map)
 				dda->side = SOUTH;
 			else
 				dda->side = NORTH;
+		// if (dda->side_dist_x < dda->side_dist_y)
+		// {
+		// 	dda->side_dist_x += dda->delta_x;
+		// 	dda->map_x += dda->step_x;
+		// 	dda->side = 0;
+		// }
+		// else
+		// {
+		// 	dda->side_dist_y += dda->delta_y;
+		// 	dda->map_y += dda->step_y;
+		// 	dda->side = 1;
+		// }
+		// if (map[dda->map_y][dda->map_x] != '0')
+		// 	dda->hit = 1;
 		}
 		if (map[dda->map_y][dda->map_x] != '0')
 			dda->hit = 1;
@@ -108,10 +122,18 @@ void	draw_frame(t_data *md)
 		dda = init_dda(md->player);
 		get_deltas(ray_vect, &dda);
 		perform_dda(&dda, md->map);
-		if (dda.side == 0)
+		if (dda.side == WEST || dda.side == EAST)
 			dist_to_wall = dda.side_dist_x - dda.delta_x;
 		else
 			dist_to_wall = dda.side_dist_y - dda.delta_y;
+		if (dist_to_wall < 1)
+			line_h = SCRNHEIGHT;
+		else
+			line_h = (int)(SCRNHEIGHT / dist_to_wall);
+		// if (dda.side == 0)
+		// 	dist_to_wall = dda.side_dist_x - dda.delta_x;
+		// else
+		// 	dist_to_wall = dda.side_dist_y - dda.delta_y;
 		if (dist_to_wall < 1)
 			line_h = SCRNHEIGHT;
 		else

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/27 11:28:52 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:05:36 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	free_data(t_data *data)
 {
 	if (data->map)
 		free_map(data->map);
+	mlx_destroy_image(data->mlx, data->img->mlx_img);
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	mlx_destroy_display(data->mlx);
 	/* free and close the rest*/
 }
 

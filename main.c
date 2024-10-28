@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/27 15:59:30 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:23:36 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	main(int argc, char **argv)
 	check_valid_map(data);
 	draw_frame(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	set_hooks(data);
 	mlx_loop(data->mlx);
 }
