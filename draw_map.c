@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/28 13:53:11 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:52:26 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,36 +84,33 @@ void	perform_dda(t_dda *dda, char **map)
 			dda->side_dist_y += dda->delta_y;
 			dda->map_y += dda->step_y;
 			if (dda->step_y == -1)
-				dda->side = SOUTH;
-			else
 				dda->side = NORTH;
-		// if (dda->side_dist_x < dda->side_dist_y)
-		// {
-		// 	dda->side_dist_x += dda->delta_x;
-		// 	dda->map_x += dda->step_x;
-		// 	dda->side = 0;
-		// }
-		// else
-		// {
-		// 	dda->side_dist_y += dda->delta_y;
-		// 	dda->map_y += dda->step_y;
-		// 	dda->side = 1;
-		// }
-		// if (map[dda->map_y][dda->map_x] != '0')
-		// 	dda->hit = 1;
+			else
+				dda->side = SOUTH;
 		}
 		if (map[dda->map_y][dda->map_x] != '0')
 			dda->hit = 1;
 	}
 }
 
+void	calc_line_height(t_dda dda, t_draw_data *draw_data)
+{
+	if (dda.side == WEST || dda.side == EAST)
+		draw_data->per_wall_dist = dda.side_dist_x - dda.delta_x;
+	else
+		draw_data->per_wall_dist = dda.side_dist_y - dda.delta_y;
+	if (draw_data->per_wall_dist < 1)
+		draw_data->line_height = SCRNHEIGHT;
+	else
+		draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
+}
+
 void	draw_frame(t_data *md)
 {
-	t_ray	ray_vect;
-	t_dda	dda;
-	double	dist_to_wall;
-	int		line_h;
-	int		x;
+	t_ray		ray_vect;
+	t_dda		dda;
+	int			x;
+	t_draw_data	draw_data;
 
 	x = -1;
 	while (++x < SCRNWIDTH)
@@ -122,22 +119,8 @@ void	draw_frame(t_data *md)
 		dda = init_dda(md->player);
 		get_deltas(ray_vect, &dda);
 		perform_dda(&dda, md->map);
-		if (dda.side == WEST || dda.side == EAST)
-			dist_to_wall = dda.side_dist_x - dda.delta_x;
-		else
-			dist_to_wall = dda.side_dist_y - dda.delta_y;
-		if (dist_to_wall < 1)
-			line_h = SCRNHEIGHT;
-		else
-			line_h = (int)(SCRNHEIGHT / dist_to_wall);
-		// if (dda.side == 0)
-		// 	dist_to_wall = dda.side_dist_x - dda.delta_x;
-		// else
-		// 	dist_to_wall = dda.side_dist_y - dda.delta_y;
-		if (dist_to_wall < 1)
-			line_h = SCRNHEIGHT;
-		else
-			line_h = (int)(SCRNHEIGHT / dist_to_wall);
-		draw_line_to_img(md, dda.side, x, line_h);
+		calc_line_height(dda, &draw_data);
+		calc_wall_txtr_x(dda, &draw_data, md, ray_vect);
+		draw_line_to_img(md, x, &draw_data);
 	}
 }

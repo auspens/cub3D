@@ -16,9 +16,9 @@ LIBFT_NAME = libft.a
 
 LIBFT = $(LIBFT_PATH)$(LIBFT_NAME)
 
-SRCS = check_map.c \
+SRCS = map_parcing/check_map.c \
 		image_render.c \
-		read_file.c \
+		map_parcing/read_file.c \
 		main.c \
 		clean_exit.c \
 		utils.c \

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/28 15:46:57 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:03:50 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	move_player(t_data *data, int key)
 	else
 		rotate_vector(data->dir, &perp_dir, -PI / 2);
 	if (key == XK_a)
-		step_backward(data, perp_dir);
-	else if (key == XK_d)
 		step_forward(data, perp_dir);
+	else if (key == XK_d)
+		step_backward(data, perp_dir);
 }
 
 int	key_press(int key, void *data_passed)

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/28 12:20:28 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:28:39 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@ void	rotate_vector(t_coord src, t_coord *dst, double angle)
 {
 	dst->x = src.x * cos(angle) - src.y * sin(angle);
 	dst->y = src.x * sin(angle) + src.y * cos(angle);
-}
-
-void	my_pixel_put(t_img_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->img_addr + (y * data->img_line_len + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
 }
 
 int	gen_trgb(int opacity, int red, int green, int blue)
@@ -43,6 +35,7 @@ t_data	*init_data(void)
 	data->img = new_img(data);
 	data->player.x = 0;
 	data->player.y = 0;
+	data->txt = ft_calloc(4, sizeof(t_img_data *));
 	return (data);
 }
 

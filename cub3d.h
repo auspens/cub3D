@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/28 15:22:08 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:23:51 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,17 @@ typedef struct s_tx
 	t_img_data		*w;
 }		t_tx;
 
+typedef struct draw_data {
+	int			line_height;
+	double		wall_x;
+	double		txtr_x;
+	double		txtr_y;
+	double		per_wall_dist;
+	t_img_data	*txtr;
+	double		step;
+	double		txtr_pos;
+}	t_draw_data;
+
 typedef struct data {
 	void		*mlx;
 	void		*mlx_win;
@@ -107,7 +118,7 @@ void		get_input(t_data *data, int fd, int size);
 /*clean_exit*/
 void		clean_exit(int code, char *msg, t_data *data);
 void		free_data(t_data *data);
-void		free_map(char **map);
+void		free_array(char **array);
 
 /*check_map*/
 void		check_valid_map(t_data *data);
@@ -119,7 +130,8 @@ void		draw_frame(t_data *md);
 void		map_error(int fd, t_data *data, char *line, int error);
 
 /*image_render*/
-void		draw_line_to_img(t_data *data, t_sides side, int x, int height);
+void		draw_line_to_img(t_data *data, int x, t_draw_data *draw);
+void		calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray);
 
 /*utils*/
 int			gen_trgb(int opacity, int red, int green, int blue);
@@ -130,7 +142,7 @@ void		rotate_vector(t_coord src, t_coord *dst, double angle);
 
 /*texture_utils*/
 int			get_txt_color(t_img_data img, t_sides side, int x, int y);
-t_img_data	*get_texture(char *addr, t_data *data);
+int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
 void		set_hooks(t_data *data);

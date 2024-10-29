@@ -6,28 +6,28 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/28 15:05:36 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:07:15 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_map(char **map)
+void	free_array(char **array)
 {
 	int	idx;
 
 	idx = 0;
-	if (!map)
+	if (!array)
 		return ;
-	while (map[idx])
-		free(map[idx++]);
-	free(map);
+	while (array[idx])
+		free(array[idx++]);
+	free(array);
 }
 
 void	free_data(t_data *data)
 {
 	if (data->map)
-		free_map(data->map);
+		free_array(data->map);
 	mlx_destroy_image(data->mlx, data->img->mlx_img);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
