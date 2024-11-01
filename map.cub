@@ -1,9 +1,14 @@
 NO ./textures/colorstone.xpm
 
-SO ./textures/greystone.xpm
+     SO    ./textures/greystone.xpm
+C 56,178,239
 
-EA ./textures/purplestone.xpm
+
+
+EA        ./textures/purplestone.xpm
 WE ./textures/eagle.xpm
+
+F         63,193,37
 
 
 111111111111

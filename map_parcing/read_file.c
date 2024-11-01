@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/01 12:54:41 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:22:43 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,13 @@ int	check_line(char *line, t_data *data, int fd)
 	if (!ft_strcmp(split_line[0], "NO") || !ft_strcmp(split_line[0], "SO")
 		|| !ft_strcmp(split_line[0], "WE") || !ft_strcmp(split_line[0], "EA"))
 		return (read_texture(split_line, data, fd));
-	/*will finish parcing colors later*/
-	// else if (!ft_strcmp(split_line[0], "F") || !ft_strcmp(split_line[0], "C"))
-	// 	return (parce_color(data, split_line));
+	else if (!ft_strcmp(split_line[0], "F") || !ft_strcmp(split_line[0], "C"))
+		return (parce_color(data, split_line, fd));
 	else
 	{
 		free_array(split_line);
 		close(fd);
-		clean_exit(1, "Err: incorrect input in textures\n", data);
+		clean_exit(1, "Err: incorrect input in textures and colors\n", data);
 	}
 	return (0);
 }
@@ -87,7 +86,7 @@ void	get_input(t_data *data, int fd, int size)
 
 	idx = 0;
 	line = get_next_line(fd);
-	while (idx < 4)
+	while (idx < 6)
 	{
 		idx += check_line(line, data, fd);
 		line = get_next_line(fd);
@@ -99,8 +98,8 @@ void	get_input(t_data *data, int fd, int size)
 	}
 	/*here add a function to analyse the contents of the line*/
 	get_map(data, line, fd, size);
-	data->color_ceiling = gen_trgb(255, 56, 178, 239);
-	data->color_floor = gen_trgb(255, 63, 193, 37);
+	// data->color_ceiling = gen_trgb(255, 56, 178, 239);
+	// data->color_floor = gen_trgb(255, 63, 193, 37);
 	// get_texture("./textures/colorstone.xpm\n", data, &(data->txt->e));
 	// get_texture("./textures/greystone.xpm\n", data, &(data->txt->w));
 	// get_texture("./textures/purplestone.xpm\n", data, &(data->txt->s));

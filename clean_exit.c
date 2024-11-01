@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:07:15 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:23:41 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ void	clean_exit(int code, char *msg, t_data *data)
 	if (data)
 		free_data(data);
 	exit (code);
+}
+
+void	exit_at_reading_input(t_data *data, int fd, char **arr, char *msg)
+{
+	free_array(arr);
+	close(fd);
+	clean_exit(1, msg, data);
 }

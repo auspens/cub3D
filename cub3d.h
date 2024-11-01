@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:23:51 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:21:05 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void		get_input(t_data *data, int fd, int size);
 void		clean_exit(int code, char *msg, t_data *data);
 void		free_data(t_data *data);
 void		free_array(char **array);
+void		exit_at_reading_input(t_data *data, int fd, char **arr, char *msg);
+
 
 /*check_map*/
 void		check_valid_map(t_data *data);
@@ -146,5 +148,8 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
 void		set_hooks(t_data *data);
+
+/*parce_color*/
+int			parce_color(t_data *data, char **lines, int fd);
 
 #endif
