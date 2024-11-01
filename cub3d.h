@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:23:51 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:06:10 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <X11/Xatom.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <float.h>
+# include <float.h> //for fabs function, probably forbidden !
+# include <sys/time.h>
+
 
 # ifndef SCRNWIDTH
 #  define SCRNWIDTH 640
@@ -107,6 +109,8 @@ typedef struct data {
 	t_coord		dir;
 	t_coord		plane;
 	char		**map;
+	struct timeval	time;
+	struct timeval	oldtime;
 }	t_data;
 
 

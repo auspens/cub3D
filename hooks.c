@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/01 11:01:35 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/01 13:14:19 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,6 @@ void	set_hooks(t_data *data)
 	mlx_key_hook(data->mlx_win, key_press, (void *)data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, win_close, (void *)data);
 	// mlx_mouse_hook(win->win_ptr, mouse_scroll, (void *)img);
+	
 }
+
