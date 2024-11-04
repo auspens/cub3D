@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:23:51 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:37:53 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int			gen_trgb(int opacity, int red, int green, int blue);
 void		my_pixel_put(t_img_data *data, int x, int y, int color);
 t_img_data	*new_img(t_data *data);
 t_data		*init_data(void);
-void		rotate_vector(t_coord src, t_coord *dst, double angle);
+t_coord		rotate_vector(t_coord src, double angle);
 
 /*texture_utils*/
 int			get_txt_color(t_img_data img, t_sides side, int x, int y);

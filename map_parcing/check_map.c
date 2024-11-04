@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:03:34 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:38:17 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_player(t_data *data, int x, int y)
 	data->player.x = (double)x + 0.5;
 	data->player.y = (double)y + 0.5;
 	set_direction(data, data->map[y][x]);
-	rotate_vector(data->dir, &(data->plane), PI / 2);
+	data->plane = rotate_vector(data->dir, PI / 2);
 	data->map[y][x] = '0';
 }
 

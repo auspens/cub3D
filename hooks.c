@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 15:03:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:44:29 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,20 @@ void	step_backward(t_data *data, t_coord dir)
 
 void	move_player(t_data *data, int key)
 {
-	t_coord	perp_dir;
+	t_coord	step;
 
 	if (key == XK_w)
-		step_forward(data, data->dir);
+		step = data->dir;
 	else if (key == XK_s)
-		step_backward(data, data->dir);
-	else
-		rotate_vector(data->dir, &perp_dir, -PI / 2);
-	if (key == XK_a)
-		step_forward(data, perp_dir);
+		step = rotate_vector(data->dir, PI);
+	else if (key == XK_a)
+		step = rotate_vector(data->dir, - PI / 2);
 	else if (key == XK_d)
-		step_backward(data, perp_dir);
+		step = rotate_vector(data->dir, PI / 2);
+	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
+		data->player.x += step.x;
+	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')
+		data->player.y += step.y;
 }
 
 int	key_press(int key, void *data_passed)
