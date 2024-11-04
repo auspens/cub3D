@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:50:03 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:28:22 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,19 @@ void	step_backward(t_data *data, t_coord dir)
 void	move_player(t_data *data, int key)
 {
 	t_coord	step;
+	//double	dist;
 
 	if (key == XK_w)
 		step = data->dir;
 	else if (key == XK_s)
 		step = rotate_vector(data->dir, PI);
 	else if (key == XK_a)
-		step = rotate_vector(data->dir, - PI / 2);
+		step = rotate_vector(data->dir, -PI / 2);
 	else if (key == XK_d)
 		step = rotate_vector(data->dir, PI / 2);
+	//dist = 0.5 / data->frames_ps; 
+	//step.x *= dist;
+	//step.y *= dist;
 	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
 		data->player.x += step.x;
 	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')

@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:49:55 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:56:54 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct data {
 	char		**map;
 	struct timeval	time;
 	struct timeval	oldtime;
+	double		frames_ps;
 }	t_data;
 
 
