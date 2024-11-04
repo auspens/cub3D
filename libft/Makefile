@@ -9,7 +9,7 @@ gnl/get_next_line.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fPIC
 
 .PHONY: all clean fclean re
 
