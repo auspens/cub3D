@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 15:28:22 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:06:09 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,19 @@ void	move_player(t_data *data, int key)
 		data->player.y += step.y;
 }
 
+void	rotate_player(t_data *data, int key)
+{
+	double	angle;
+
+	if (key == XK_Right)
+		angle = PI / 18;
+	else 
+		angle = -PI / 18;
+	data->dir = rotate_vector(data->dir, angle);
+	data->plane = rotate_vector(data->plane, angle);
+	//angle = PI / data->frames_ps; 
+}
+
 int	key_press(int key, void *data_passed)
 {
 	t_data	*data;
@@ -69,6 +82,13 @@ int	key_press(int key, void *data_passed)
 	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
 	{
 		move_player(data, key);
+		draw_frame(data);
+		mlx_put_image_to_window
+		(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	}
+	else if (key == XK_Right || key == XK_Left)
+	{
+		rotate_player(data, key);
 		draw_frame(data);
 		mlx_put_image_to_window
 		(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
