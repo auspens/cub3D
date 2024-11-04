@@ -19,6 +19,7 @@ LIBFT = $(LIBFT_PATH)$(LIBFT_NAME)
 SRCS = map_parcing/check_map.c \
 		image_render.c \
 		map_parcing/read_file.c \
+		map_parcing/parce_color.c \
 		main.c \
 		clean_exit.c \
 		utils.c \

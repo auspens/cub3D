@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:37:53 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:49:55 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <X11/Xatom.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <float.h>
+# include <float.h> //for fabs function, probably forbidden !
+# include <sys/time.h>
+
 
 # ifndef SCRNWIDTH
 #  define SCRNWIDTH 640
@@ -107,6 +109,8 @@ typedef struct data {
 	t_coord		dir;
 	t_coord		plane;
 	char		**map;
+	struct timeval	time;
+	struct timeval	oldtime;
 }	t_data;
 
 
@@ -119,6 +123,8 @@ void		get_input(t_data *data, int fd, int size);
 void		clean_exit(int code, char *msg, t_data *data);
 void		free_data(t_data *data);
 void		free_array(char **array);
+void		exit_at_reading_input(t_data *data, int fd, char **arr, char *msg);
+
 
 /*check_map*/
 void		check_valid_map(t_data *data);
@@ -146,5 +152,8 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
 void		set_hooks(t_data *data);
+
+/*parce_color*/
+int			parce_color(t_data *data, char **lines, int fd);
 
 #endif
