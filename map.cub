@@ -1,12 +1,12 @@
-NO ./textures/colorstone.xpm
+NO ./textures/abstract.xpm
 
-     SO    ./textures/greystone.xpm
+     SO    ./textures/fish.xpm
 C 56,178,239
 
 
 
-EA        ./textures/purplestone.xpm
-WE ./textures/eagle.xpm
+EA        ./textures/Christmas-tree.xpm
+WE ./textures/robot.xpm
 
 F         63,193,37
 
@@ -17,5 +17,5 @@ F         63,193,37
 100100000001
 100000001111111
 100000001111
-1000000N1111
-111111111
+100000N011
+
