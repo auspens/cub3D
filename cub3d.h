@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 12:00:31 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:41:48 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <sys/time.h>
-
+# include <float.h>
 
 # ifndef SCRNWIDTH
-#  define SCRNWIDTH 640
+#  define SCRNWIDTH 930
 # endif
 # ifndef SCRNHEIGHT
-#  define SCRNHEIGHT 480
+#  define SCRNHEIGHT 720
 # endif
 # define PI 3.14159265359
 
@@ -107,6 +107,8 @@ typedef struct data {
 	t_coord		player;
 	t_coord		dir;
 	t_coord		plane;
+	int			mouse_x;
+	int			mouse_y;
 	char		**map;
 	struct timeval	time;
 	struct timeval	oldtime;
@@ -152,6 +154,12 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
 void		set_hooks(t_data *data);
+
+/*player_movements*/
+void		step_forward(t_data *data, t_coord dir);
+void		move_player(t_data *data, int key);
+void		rotate_player(t_data *data, int key);
+
 
 /*parce_color*/
 int			parce_color(t_data *data, char **lines, int fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:37:28 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:19:45 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_coord	rotate_vector(t_coord src, double angle)
 {
-	t_coord res;
-	
+	t_coord	res;
+
 	res.x = src.x * cos(angle) - src.y * sin(angle);
 	res.y = src.x * sin(angle) + src.y * cos(angle);
 	return (res);
@@ -39,6 +39,7 @@ t_data	*init_data(void)
 	data->player.x = 0;
 	data->player.y = 0;
 	data->txt = ft_calloc(4, sizeof(t_img_data *));
+	mlx_mouse_get_pos(data->mlx, data->mlx_win, &(data->mouse_x), &(data->mouse_y));
 	return (data);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 11:35:09 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:53:55 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,56 +19,6 @@ int	win_close(void *data_passed)
 	data = data_passed;
 	clean_exit(0, "ESC button pressed, closing window\n", data);
 	return (0);
-}
-
-void	step_forward(t_data *data, t_coord dir)
-{
-	if (data->map[(int)data->player.y][(int)data->player.x + (int)dir.x] == '0')
-		data->player.x += dir.x;
-	if (data->map[(int)data->player.y + (int)dir.y][(int)data->player.x] == '0')
-		data->player.y += dir.y;
-}
-
-void	step_backward(t_data *data, t_coord dir)
-{
-	if (data->map[(int)data->player.y][(int)data->player.x - (int)dir.x] == '0')
-		data->player.x -= dir.x;
-	if (data->map[(int)data->player.y - (int)dir.y][(int)data->player.x] == '0')
-		data->player.y -= dir.y;
-}
-
-void	move_player(t_data *data, int key)
-{
-	t_coord	step;
-	double	dist;
-
-	if (key == XK_w)
-		step = data->dir;
-	else if (key == XK_s)
-		step = rotate_vector(data->dir, PI);
-	else if (key == XK_a)
-		step = rotate_vector(data->dir, -PI / 2);
-	else if (key == XK_d)
-		step = rotate_vector(data->dir, PI / 2);
-	dist = 5000 / data->frames_ps; 
-	step.x *= dist;
-	step.y *= dist;
-	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
-		data->player.x += step.x;
-	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')
-		data->player.y += step.y;
-}
-
-void	rotate_player(t_data *data, int key)
-{
-	double	angle;
-
-	if (key == XK_Right)
-		angle = 500 * PI / data->frames_ps;
-	else 
-		angle = 500 * -PI / data->frames_ps;
-	data->dir = rotate_vector(data->dir, angle);
-	data->plane = rotate_vector(data->plane, angle);
 }
 
 int	key_press(int key, void *data_passed)
@@ -87,12 +37,49 @@ int	key_press(int key, void *data_passed)
 	return (0);
 }
 
+int	mouse_move(int x, int y, void *data_passed)
+{
+	t_data	*data;
+	double	angle;
+
+	data = data_passed;
+
+	if (x <= 5)
+	{
+		data->mouse_x = x;
+		return (key_press(XK_Left, data));
+	}
+	while (x >= SCRNWIDTH - 5)
+	{
+		data->mouse_x = x;
+		return (key_press(XK_Right, data));
+	}
+	angle = ((double)(x - data->mouse_x) / (double)SCRNWIDTH) * PI;
+	data->mouse_y = y;
+	data->dir = rotate_vector(data->dir, angle);
+	data->plane = rotate_vector(data->plane, angle);
+	draw_frame(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	data->mouse_x = x;
+	return (0);
+}
+
+int	enter_window(void *data_passed)
+{
+	t_data	*data;
+
+	data = data_passed;
+	mlx_mouse_get_pos(data->mlx, data->mlx_win,
+		&(data->mouse_x), &(data->mouse_y));
+	printf("enter window, x = %d, y = %d\n", data->mouse_x, data->mouse_y);
+	return (0);
+}
+
 void	set_hooks(t_data *data)
 {
-	//mlx_key_hook(data->mlx_win, key_press, (void *)data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, win_close, (void *)data);
 	mlx_hook(data->mlx_win, 02, 1L << 0, key_press, (void *)data);
-	// mlx_mouse_hook(win->win_ptr, mouse_scroll, (void *)img);
-	
+	mlx_hook(data->mlx_win, 06, 1L << 6, mouse_move, (void *)data);
+	mlx_hook(data->mlx_win, 07, 1L << 4, enter_window, (void *)data);
 }
 

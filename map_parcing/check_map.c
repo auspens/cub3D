@@ -3,22 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:50:44 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:11:56 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+int	char_ind(char *str, char c)
+{
+	int	i;
+
+	i = -1;
+	while(str[++i])
+	{
+		if (str[i] == c)
+			return (i);
+	}
+	return (-1);
+}
+
 int	should_be_wall(t_data *data, int x, int y)
 {
+	int	ind;
+
+	if (y)
+	{
+		ind = char_ind(data->map[y - 1], '\n');
+		if (ind <= x + 1)
+			return (1);
+	}
+	if (data->map[y + 1])
+	{
+		ind = char_ind(data->map[y + 1], '\n');
+		if (ind <= x + 1)
+			return (1);
+	}
 	if (x == 0 || data->map[y][x + 1] == '\n' || data->map[y][x + 1] == ' '
 		|| data->map[y][x - 1] == ' ')
 		return (1);
 	if (data->map[y + 1] == NULL || y == 0 || data->map[y - 1][x] == ' '
-		|| data->map[y - 1][x] == ' ')
+		|| data->map[y + 1][x] == ' ')
 		return (1);
 	if (data->map[y + 1][x + 1] == ' ' || data->map[y - 1][x - 1] == ' '
 		|| data->map[y - 1][x + 1] == ' ' || data->map[y + 1][x - 1] == ' ')
@@ -74,7 +101,7 @@ void	check_valid_map(t_data *data)
 	{
 		while (data->map[y][++x] && data->map[y][x] != '\n')
 		{
-			if (should_be_wall(data, x, y) && data->map[y][x] != '1')
+			if (should_be_wall(data, x, y) && (data->map[y][x] != '1' && data->map[y][x] != ' '))
 				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
 			if (!should_be_wall(data, x, y))
 			{
