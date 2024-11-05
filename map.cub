@@ -1,12 +1,12 @@
-NO ./textures/colorstone.xpm
+NO ./textures/abstract.xpm
 
-     SO    ./textures/greystone.xpm
+     SO    ./textures/fish.xpm
 C 56,178,239
 
 
 
-EA        ./textures/purplestone.xpm
-WE ./textures/eagle.xpm
+EA        ./textures/Christmas-tree.xpm
+WE ./textures/robot.xpm
 
 F         63,193,37
 

@@ -4,5 +4,5 @@ cub3D
 
 #all object files
 *.o
-
+*.a
 
