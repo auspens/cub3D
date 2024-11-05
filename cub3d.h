@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 12:00:31 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:58:51 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <float.h>
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
 # include <X11/Xos.h>
