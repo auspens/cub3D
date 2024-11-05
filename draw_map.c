@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 14:52:26 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:37:23 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,7 @@ void	calc_line_height(t_dda dda, t_draw_data *draw_data)
 		draw_data->per_wall_dist = dda.side_dist_x - dda.delta_x;
 	else
 		draw_data->per_wall_dist = dda.side_dist_y - dda.delta_y;
-	if (draw_data->per_wall_dist < 1)
-		draw_data->line_height = SCRNHEIGHT;
-	else
-		draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
+	draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
 }
 
 void	draw_frame(t_data *md)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 21:06:09 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:35:09 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	step_backward(t_data *data, t_coord dir)
 void	move_player(t_data *data, int key)
 {
 	t_coord	step;
-	//double	dist;
+	double	dist;
 
 	if (key == XK_w)
 		step = data->dir;
@@ -50,9 +50,9 @@ void	move_player(t_data *data, int key)
 		step = rotate_vector(data->dir, -PI / 2);
 	else if (key == XK_d)
 		step = rotate_vector(data->dir, PI / 2);
-	//dist = 0.5 / data->frames_ps; 
-	//step.x *= dist;
-	//step.y *= dist;
+	dist = 5000 / data->frames_ps; 
+	step.x *= dist;
+	step.y *= dist;
 	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
 		data->player.x += step.x;
 	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')
@@ -64,12 +64,11 @@ void	rotate_player(t_data *data, int key)
 	double	angle;
 
 	if (key == XK_Right)
-		angle = PI / 18;
+		angle = 500 * PI / data->frames_ps;
 	else 
-		angle = -PI / 18;
+		angle = 500 * -PI / data->frames_ps;
 	data->dir = rotate_vector(data->dir, angle);
 	data->plane = rotate_vector(data->plane, angle);
-	//angle = PI / data->frames_ps; 
 }
 
 int	key_press(int key, void *data_passed)
@@ -80,26 +79,19 @@ int	key_press(int key, void *data_passed)
 	if (key == XK_Escape)
 		win_close(data);
 	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
-	{
 		move_player(data, key);
-		draw_frame(data);
-		mlx_put_image_to_window
-		(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
-	}
-	else if (key == XK_Right || key == XK_Left)
-	{
+	if (key == XK_Right || key == XK_Left)
 		rotate_player(data, key);
-		draw_frame(data);
-		mlx_put_image_to_window
-		(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
-	}
+	draw_frame(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
 	return (0);
 }
 
 void	set_hooks(t_data *data)
 {
-	mlx_key_hook(data->mlx_win, key_press, (void *)data);
+	//mlx_key_hook(data->mlx_win, key_press, (void *)data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, win_close, (void *)data);
+	mlx_hook(data->mlx_win, 02, 1L << 0, key_press, (void *)data);
 	// mlx_mouse_hook(win->win_ptr, mouse_scroll, (void *)img);
 	
 }

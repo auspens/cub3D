@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 15:47:30 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:47:29 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 // 		color = gen_trgb(255, 88, 29, 226);
 // /*this is temp before the textures are set*/
 	y = -1;
-	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2;
+	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; //-10
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
 	draw->step = 1.0 * draw->txtr->height / draw->line_height;
-	draw->txtr_pos = (line_highest_p - SCRNHEIGHT / 2 + draw->line_height / 2)
-		* draw->step;
+	if (line_highest_p < 0)
+		draw->txtr_pos = - line_highest_p * draw->step;
+	else
+		draw->txtr_pos = 0;
 	while (++y < SCRNHEIGHT)
 	{
 		if (y < line_highest_p)
