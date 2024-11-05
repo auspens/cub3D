@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 16:06:09 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:56:18 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ typedef struct data {
 	t_coord		player;
 	t_coord		dir;
 	t_coord		plane;
-	int			mouse_x;
-	int			mouse_y;
 	char		**map;
 	struct timeval	time;
 	struct timeval	oldtime;
