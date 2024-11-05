@@ -3,19 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 14:28:39 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:37:28 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	rotate_vector(t_coord src, t_coord *dst, double angle)
+t_coord	rotate_vector(t_coord src, double angle)
 {
-	dst->x = src.x * cos(angle) - src.y * sin(angle);
-	dst->y = src.x * sin(angle) + src.y * cos(angle);
+	t_coord res;
+	
+	res.x = src.x * cos(angle) - src.y * sin(angle);
+	res.y = src.x * sin(angle) + src.y * cos(angle);
+	return (res);
 }
 
 int	gen_trgb(int opacity, int red, int green, int blue)

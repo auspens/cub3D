@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:27:13 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:59:00 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 int	timer(void *data_passed)
 {
 	t_data	*data;
-	//size_t	elapsed;
+	double	elapsed;
 
 	data = data_passed;
 	data->oldtime = data->time;
 	gettimeofday(&data->time, 0);
-	/*elapsed = (data->time.tv_sec - data->oldtime.tv_sec) * 1000000 + \
-				(data->time.tv_usec - data->oldtime.tv_usec);
-	*/
+	elapsed = (data->time.tv_sec - data->oldtime.tv_sec) + \
+				(data->time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
+	data->frames_ps = 1 / elapsed;
 	//printf("elapsed %lu microsec\n", elapsed);
 	return (0);
 }
