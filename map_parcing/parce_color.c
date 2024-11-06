@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:07:37 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/01 14:32:51 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:54:15 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	read_color(t_data *data, char **lines, int fd, char **colors)
 	}
 	if (ind != 3)
 		exit_at_reading_input(data, fd, lines, "Map error in colors\n");
-	return (gen_trgb(255, rgb[0], rgb[1], rgb[2]));
+	return (gen_trgb(0, rgb[0], rgb[1], rgb[2]));
 }
 
 int	parce_color(t_data *data, char **lines, int fd)

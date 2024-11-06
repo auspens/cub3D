@@ -1,14 +1,14 @@
-NO ./textures/abstract.xpm
+NO ./textures/kandinsky-circles.xpm
 
-     SO    ./textures/fish.xpm
+     SO    ./textures/goncharova.xpm
 C 56,178,239
 
 
 
-EA        ./textures/Christmas-tree.xpm
-WE ./textures/robot.xpm
+EA        ./textures/space.xpm
+WE ./textures/kandinsky-snow.xpm
 
-F         63,193,37
+F         0,128,128
 
 
 111111111111
@@ -18,4 +18,4 @@ F         63,193,37
 100000001111111
 100000001111
 100000N011
-
+1111111111
