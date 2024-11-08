@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 11:12:09 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:15:52 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	draw_frame(t_data *md)
 	int			x;
 	t_draw_data	draw_data; 
 
+	md->redraw = 0;
 	x = -1;
 	while (++x < SCRNWIDTH)
 	{

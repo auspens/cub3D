@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 12:30:36 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:09:17 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct data {
 	struct timeval	oldtime;
 	double		elapsed;
 	t_door	door;
+	int redraw;
 }	t_data;
 
 

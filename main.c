@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 13:12:28 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:27:57 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,23 @@ int	timer(void *data_passed)
 	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
 				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
 	data->oldtime = time;
-	printf("elapsed %f microsec\n", data->elapsed);
+	//printf("elapsed %f microsec\n", data->elapsed);
 	if (data->door.state == 1)
 	{
-		data->door.open_ratio += 0.1;
+		data->door.open_ratio += data->elapsed;
 		if (data->door.open_ratio >= 1)
 		{
 			data->door.open_ratio = 1;
 			data->door.state = 2;
+			data->redraw = 1;
 		}
-		sleep(1);
-		draw_frame(data);
+		//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 	}
-	printf("data->door.open_ratio is %f\n", data->door.open_ratio);
+	if (data->door.state == 1 || data->redraw)
+	{
+		draw_frame(data);
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	}
 	return (0);
 }
 
