@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 11:35:09 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:02:08 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ int	win_close(void *data_passed)
 	data = data_passed;
 	clean_exit(0, "ESC button pressed, closing window\n", data);
 	return (0);
-}
-
-void	step_forward(t_data *data, t_coord dir)
-{
-	if (data->map[(int)data->player.y][(int)data->player.x + (int)dir.x] == '0')
-		data->player.x += dir.x;
-	if (data->map[(int)data->player.y + (int)dir.y][(int)data->player.x] == '0')
-		data->player.y += dir.y;
-}
-
-void	step_backward(t_data *data, t_coord dir)
-{
-	if (data->map[(int)data->player.y][(int)data->player.x - (int)dir.x] == '0')
-		data->player.x -= dir.x;
-	if (data->map[(int)data->player.y - (int)dir.y][(int)data->player.x] == '0')
-		data->player.y -= dir.y;
 }
 
 void	move_player(t_data *data, int key)
@@ -50,7 +34,7 @@ void	move_player(t_data *data, int key)
 		step = rotate_vector(data->dir, -PI / 2);
 	else if (key == XK_d)
 		step = rotate_vector(data->dir, PI / 2);
-	dist = 5000 / data->frames_ps; 
+	dist = 5000 * data->elapsed; 
 	step.x *= dist;
 	step.y *= dist;
 	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
@@ -64,9 +48,9 @@ void	rotate_player(t_data *data, int key)
 	double	angle;
 
 	if (key == XK_Right)
-		angle = 500 * PI / data->frames_ps;
+		angle = 500 * PI * data->elapsed;
 	else 
-		angle = 500 * -PI / data->frames_ps;
+		angle = 500 * -PI * data->elapsed;
 	data->dir = rotate_vector(data->dir, angle);
 	data->plane = rotate_vector(data->plane, angle);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 12:58:51 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:07:11 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_dda
 	int			step_x;
 	int			step_y;
 	t_sides		side;
-	int			hit;
+	char		hit;
 }	t_dda;
 
 typedef struct s_ray
@@ -85,6 +85,7 @@ typedef struct s_tx
 	t_img_data		*s;
 	t_img_data		*e;
 	t_img_data		*w;
+	t_img_data		*dr;
 }		t_tx;
 
 typedef struct draw_data {
@@ -96,7 +97,15 @@ typedef struct draw_data {
 	t_img_data	*txtr;
 	double		step;
 	double		txtr_pos;
+	int			door;
 }	t_draw_data;
+
+typedef struct s_door {
+	int	x;
+	int y;
+	int state;
+	double	open_ratio;
+}	t_door;
 
 typedef struct data {
 	void		*mlx;
@@ -109,10 +118,11 @@ typedef struct data {
 	t_coord		dir;
 	t_coord		plane;
 	char		**map;
-	struct timeval	time;
 	struct timeval	oldtime;
-	double		frames_ps;
+	double		elapsed;
+	t_door	door;
 }	t_data;
+
 
 
 /*read_file*/
@@ -132,6 +142,10 @@ void		check_valid_map(t_data *data);
 
 /*draw map*/
 void		draw_frame(t_data *md);
+void	calc_line_height(t_dda dda, t_draw_data *draw_data);
+void	perform_dda(t_dda *dda, char **map);
+
+
 
 /*map_utils*/
 void		map_error(int fd, t_data *data, char *line, int error);

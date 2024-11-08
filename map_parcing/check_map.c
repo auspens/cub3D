@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:50:44 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 08:58:36 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,38 @@ void	set_player(t_data *data, int x, int y)
 	data->map[y][x] = '0';
 }
 
+void	set_door(t_data *data, int x, int y)
+{
+	data->door.x = x;
+	data->door.y = y;
+	data->door.state = 0;
+	data->door.open_ratio = 0;
+}
+
 void	check_valid_map(t_data *data)
 {
 	int	x;
 	int	y;
+	char c;
 
-	x = -1;
 	y = -1;
 	while (data->map[++y])
 	{
+		x = -1;
 		while (data->map[y][++x] && data->map[y][x] != '\n')
 		{
-			if (should_be_wall(data, x, y) && data->map[y][x] != '1')
+			c = data->map[y][x];
+			if (should_be_wall(data, x, y) && c != '1' && c != 'D')
 				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
 			if (!should_be_wall(data, x, y))
 			{
-				if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
-					|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
+				if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 					set_player(data, x, y);
-				else if (data->map[y][x] != '0' && data->map[y][x] != '1'
-					&& data->map[y][x] != ' ')
-					return (clean_exit
-						(1, "Err: not allowed chars in map\n", data));
+				else if (c == 'D')
+					set_door(data, x, y);
+				else if (c != '0' && c != '1' && c != ' ')
+					clean_exit(1, "Err: not allowed chars in map\n", data);
 			}
 		}
-		x = -1;
 	}
 }

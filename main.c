@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/04 14:59:00 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:14:35 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,23 @@
 int	timer(void *data_passed)
 {
 	t_data	*data;
-	double	elapsed;
+	struct timeval time;
 
 	data = data_passed;
-	data->oldtime = data->time;
-	gettimeofday(&data->time, 0);
-	elapsed = (data->time.tv_sec - data->oldtime.tv_sec) + \
-				(data->time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
-	data->frames_ps = 1 / elapsed;
+	gettimeofday(&time, 0);
+	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
+				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
+	data->oldtime = time;
 	//printf("elapsed %lu microsec\n", elapsed);
+	if (data->door.state == 1)
+	{
+		data->door.open_ratio += 5000 *data->elapsed;
+		if (data->door.open_ratio >= 1)
+		{
+			data->door.open_ratio = 1;
+			data->door.state = 2;
+		}
+	}
 	return (0);
 }
 

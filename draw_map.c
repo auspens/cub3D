@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 11:37:23 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:16:24 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_dda	init_dda(t_coord player)
 	dda.side_dist_y = 0;
 	dda.step_x = 1;
 	dda.step_y = 1;
+	dda.hit = 0;
 	return (dda);
 }
 
@@ -67,7 +68,6 @@ void	get_deltas(t_ray ray, t_dda *dda)
 
 void	perform_dda(t_dda *dda, char **map)
 {
-	dda->hit = 0;
 	while (dda->hit == 0)
 	{
 		if (dda->side_dist_x < dda->side_dist_y)
@@ -89,7 +89,7 @@ void	perform_dda(t_dda *dda, char **map)
 				dda->side = SOUTH;
 		}
 		if (map[dda->map_y][dda->map_x] != '0')
-			dda->hit = 1;
+			dda->hit = map[dda->map_y][dda->map_x];
 	}
 }
 
@@ -99,6 +99,8 @@ void	calc_line_height(t_dda dda, t_draw_data *draw_data)
 		draw_data->per_wall_dist = dda.side_dist_x - dda.delta_x;
 	else
 		draw_data->per_wall_dist = dda.side_dist_y - dda.delta_y;
+	if (dda.hit >= 'D')
+		draw_data->door = 1;
 	draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
 }
 
@@ -108,6 +110,7 @@ void	draw_frame(t_data *md)
 	t_dda		dda;
 	int			x;
 	t_draw_data	draw_data;
+	draw_data.door = 0; 
 
 	x = -1;
 	while (++x < SCRNWIDTH)

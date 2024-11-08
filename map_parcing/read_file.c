@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/01 14:22:43 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/08 08:55:18 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	get_input(t_data *data, int fd, int size)
 	// get_texture("./textures/greystone.xpm\n", data, &(data->txt->w));
 	// get_texture("./textures/purplestone.xpm\n", data, &(data->txt->s));
 	// get_texture("./textures/eagle.xpm\n", data, &(data->txt->n));
+	get_texture("./textures/d1.xpm\n", data, &(data->txt->dr));
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)

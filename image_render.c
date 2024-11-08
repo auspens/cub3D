@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 11:47:29 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:19:54 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,37 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
+int check_door_state(t_draw_data *draw, t_data *data)
+{
+	if (data->door.state == 2)
+		return (1);
+	if (data->door.state == 0)
+		return (0);
+	if (draw->wall_x > 1 - data->door.open_ratio)
+		return (1);
+	return (0);
+}
+
+
+void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
+{
+	int can_see_further;
+	
+	can_see_further = check_door_state(draw, data);
+	if (can_see_further)
+	{
+		dda.hit = 0;
+		perform_dda(&dda, data->map);
+		calc_line_height(dda, draw);
+		calc_wall_txtr_x(dda, draw, data, ray);
+		return ;
+	}
+	draw->txtr = data->txt->dr;
+	if (data->door.state == 1)
+		draw->txtr_x += data->door.open_ratio * (double)draw->txtr->width;
+}
+
+
 void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
 	if (dda.side == WEST)
@@ -48,7 +79,10 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
 	if ((dda.side == NORTH || dda.side == SOUTH) && ray.dir.y < 0)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
+	if (draw->door)
+		handle_door(dda, draw, data, ray);
 }
+
 
 void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 {
@@ -90,3 +124,4 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 			my_pixel_put(data->img, x, y, data->color_floor);
 	}
 }
+
