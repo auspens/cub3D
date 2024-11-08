@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 09:14:35 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:12:28 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ int	timer(void *data_passed)
 	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
 				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
 	data->oldtime = time;
-	//printf("elapsed %lu microsec\n", elapsed);
+	printf("elapsed %f microsec\n", data->elapsed);
 	if (data->door.state == 1)
 	{
-		data->door.open_ratio += 5000 *data->elapsed;
+		data->door.open_ratio += 0.1;
 		if (data->door.open_ratio >= 1)
 		{
 			data->door.open_ratio = 1;
 			data->door.state = 2;
 		}
+		sleep(1);
+		draw_frame(data);
 	}
+	printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 	return (0);
 }
 

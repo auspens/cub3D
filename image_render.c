@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 09:19:54 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:02:03 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	if (can_see_further)
 	{
 		dda.hit = 0;
+		draw->door = 0;
 		perform_dda(&dda, data->map);
 		calc_line_height(dda, draw);
 		calc_wall_txtr_x(dda, draw, data, ray);
 		return ;
 	}
-	draw->txtr = data->txt->dr;
 	if (data->door.state == 1)
 		draw->txtr_x += data->door.open_ratio * (double)draw->txtr->width;
 }
@@ -63,22 +63,23 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
 	if (dda.side == WEST)
 		draw->txtr = data->txt->w;
-	if (dda.side == EAST)
+	else if (dda.side == EAST)
 		draw->txtr = data->txt->e;
-	if (dda.side == NORTH)
+	else if (dda.side == NORTH)
 		draw->txtr = data->txt->n;
-	if (dda.side == SOUTH)
+	else if (dda.side == SOUTH)
 		draw->txtr = data->txt->s;
+	if (draw->door)
+		draw->txtr = data->txt->dr;
 	if (dda.side == WEST || dda.side == EAST)
 		draw->wall_x = data->player.y + draw->per_wall_dist * ray.dir.y;
 	else
 		draw->wall_x = data->player.x + draw->per_wall_dist * ray.dir.x;
 	draw->wall_x -= (int)draw->wall_x;
-	draw->txtr_x = (int)(draw->wall_x * (double)draw->txtr->width);
-	if ((dda.side == WEST || dda.side == EAST) && ray.dir.x > 0)
+	draw->txtr_x = (int)(draw->wall_x * draw->txtr->width);
+	if (dda.side == SOUTH || dda.side == WEST)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
-	if ((dda.side == NORTH || dda.side == SOUTH) && ray.dir.y < 0)
-		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
+	//printf("side is %i wall_x is %f and txtr_x is %d\n", dda.side, draw->wall_x, draw->txtr_x);
 	if (draw->door)
 		handle_door(dda, draw, data, ray);
 }
@@ -102,9 +103,9 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 // 		color = gen_trgb(255, 88, 29, 226);
 // /*this is temp before the textures are set*/
 	y = -1;
-	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; //-10
+	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; 
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
-	draw->step = 1.0 * draw->txtr->height / draw->line_height;
+	draw->step = (double)draw->txtr->height / draw->line_height;
 	if (line_highest_p < 0)
 		draw->txtr_pos = - line_highest_p * draw->step;
 	else
@@ -113,7 +114,7 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 	{
 		if (y < line_highest_p)
 			my_pixel_put(data->img, x, y, data->color_ceiling);
-		if (y > line_highest_p && y < line_lowest_p)
+		if (y >= line_highest_p && y <= line_lowest_p)
 		{
 			draw->txtr_y = (int)draw->txtr_pos & (draw->txtr->height - 1);
 			draw->txtr_pos += draw->step;

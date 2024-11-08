@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 09:07:11 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:30:36 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ typedef struct s_tx
 typedef struct draw_data {
 	int			line_height;
 	double		wall_x;
-	double		txtr_x;
-	double		txtr_y;
+	int		txtr_x;
+	int		txtr_y;
 	double		per_wall_dist;
 	t_img_data	*txtr;
 	double		step;

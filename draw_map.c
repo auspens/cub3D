@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 09:16:24 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:12:09 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	draw_frame(t_data *md)
 	t_ray		ray_vect;
 	t_dda		dda;
 	int			x;
-	t_draw_data	draw_data;
-	draw_data.door = 0; 
+	t_draw_data	draw_data; 
 
 	x = -1;
 	while (++x < SCRNWIDTH)
 	{
+		draw_data.door = 0;
 		ray_vect = init_ray(md, x);
 		dda = init_dda(md->player);
 		get_deltas(ray_vect, &dda);
