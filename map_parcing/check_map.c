@@ -6,7 +6,7 @@
 /*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 08:58:36 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:12:18 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_valid_map(t_data *data)
 		while (data->map[y][++x] && data->map[y][x] != '\n')
 		{
 			c = data->map[y][x];
-			if (should_be_wall(data, x, y) && c != '1' && c != 'D')
+			if (should_be_wall(data, x, y) && c != '1')
 				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
 			if (!should_be_wall(data, x, y))
 			{

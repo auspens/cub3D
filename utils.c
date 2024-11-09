@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 14:12:07 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:49:40 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_data	*init_data(void)
 	data->player.y = 0;
 	data->txt = ft_calloc(5, sizeof(t_img_data *));
 	data->redraw = 0;
+	data->can_open[0] = 0;
+	data->can_open[1] = 0;
 	return (data);
 }
 

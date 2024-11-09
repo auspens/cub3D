@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 14:09:17 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:49:30 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 
 
 # ifndef SCRNWIDTH
-#  define SCRNWIDTH 640
+#  define SCRNWIDTH 1024
 # endif
 # ifndef SCRNHEIGHT
-#  define SCRNHEIGHT 480
+#  define SCRNHEIGHT 800
 # endif
 # define PI 3.14159265359
 
@@ -97,7 +97,6 @@ typedef struct draw_data {
 	t_img_data	*txtr;
 	double		step;
 	double		txtr_pos;
-	int			door;
 }	t_draw_data;
 
 typedef struct s_door {
@@ -121,6 +120,7 @@ typedef struct data {
 	struct timeval	oldtime;
 	double		elapsed;
 	t_door	door;
+	int can_open[2];
 	int redraw;
 }	t_data;
 

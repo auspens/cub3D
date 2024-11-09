@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 14:35:31 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:56:28 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,33 @@ int	win_close(void *data_passed)
 	data = data_passed;
 	clean_exit(0, "ESC button pressed, closing window\n", data);
 	return (0);
+}
+
+int can_walk(t_data *data, int x, int y)
+{
+	char c = data->map[y][x];
+	if (c == '0')
+		return (1);
+	if (c == 'D' && data->door.state == 2)
+		return (1);
+	return (0);
+}
+
+void	make_step(t_data *data, t_coord step)
+{
+	int y;
+	int new_y;
+	int x;
+	int new_x;
+
+	y = (int)data->player.y;
+	new_y = (int)(data->player.y + step.y);
+	x = (int)data->player.x;
+	new_x = (int)(data->player.x + step.x);
+	if (can_walk(data, new_x, y))
+		data->player.x += step.x;
+	if (can_walk(data, x, new_y))
+		data->player.y += step.y;
 }
 
 void	move_player(t_data *data, int key)
@@ -37,10 +64,7 @@ void	move_player(t_data *data, int key)
 	dist = 0.2; 
 	step.x *= dist;
 	step.y *= dist;
-	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
-		data->player.x += step.x;
-	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')
-		data->player.y += step.y;
+	make_step(data, step);
 }
 
 void	rotate_player(t_data *data, int key)
@@ -66,7 +90,7 @@ int	key_press(int key, void *data_passed)
 		move_player(data, key);
 	if (key == XK_Right || key == XK_Left)
 		rotate_player(data, key);
-	if (key == XK_space && data->door.state == 0)
+	if (key == XK_space && data->door.state == 0 && data->can_open[0] == data->door.x && data->can_open[1] == data->door.y)
 		data->door.state = 1;
 	data->redraw = 1;
 	return (0);

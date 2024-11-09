@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 13:02:03 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:05:50 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ int check_door_state(t_draw_data *draw, t_data *data)
 		return (1);
 	return (0);
 }
-
+float dist_to_door(t_coord player, t_dda dda)
+{
+	if (dda.side == EAST || dda.side == WEST)
+		return (fabs(player.x - dda.map_x));
+	else 
+		return (fabs(player.y - dda.map_y));
+}
 
 void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
@@ -48,7 +54,6 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	if (can_see_further)
 	{
 		dda.hit = 0;
-		draw->door = 0;
 		perform_dda(&dda, data->map);
 		calc_line_height(dda, draw);
 		calc_wall_txtr_x(dda, draw, data, ray);
@@ -56,6 +61,11 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	}
 	if (data->door.state == 1)
 		draw->txtr_x += data->door.open_ratio * (double)draw->txtr->width;
+	else if (data->door.state == 0 && dist_to_door(data->player, dda) < 2.5)
+	{
+		data->can_open[0] = dda.map_x;
+		data->can_open[1] = dda.map_y;
+	}
 }
 
 
@@ -69,7 +79,7 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		draw->txtr = data->txt->n;
 	else if (dda.side == SOUTH)
 		draw->txtr = data->txt->s;
-	if (draw->door)
+	if (dda.hit == 'D')
 		draw->txtr = data->txt->dr;
 	if (dda.side == WEST || dda.side == EAST)
 		draw->wall_x = data->player.y + draw->per_wall_dist * ray.dir.y;
@@ -80,7 +90,7 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	if (dda.side == SOUTH || dda.side == WEST)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
 	//printf("side is %i wall_x is %f and txtr_x is %d\n", dda.side, draw->wall_x, draw->txtr_x);
-	if (draw->door)
+	if (dda.hit == 'D')
 		handle_door(dda, draw, data, ray);
 }
 
@@ -92,22 +102,12 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 	int	line_highest_p;
 	int	color;
 
-// /*this is temp before the textures are set*/
-// 	if (side == EAST)
-// 		color = 0xFF0000FF;
-// 	else if (side == WEST)
-// 		color = gen_trgb(255, 167, 226, 29);
-// 	else if (side == NORTH)
-// 		color = gen_trgb (255, 226, 128, 29);
-// 	else
-// 		color = gen_trgb(255, 88, 29, 226);
-// /*this is temp before the textures are set*/
 	y = -1;
 	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; 
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
 	draw->step = (double)draw->txtr->height / draw->line_height;
 	if (line_highest_p < 0)
-		draw->txtr_pos = - line_highest_p * draw->step;
+		draw->txtr_pos = -line_highest_p * draw->step;
 	else
 		draw->txtr_pos = 0;
 	while (++y < SCRNHEIGHT)

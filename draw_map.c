@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 14:15:52 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:55:04 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	calc_line_height(t_dda dda, t_draw_data *draw_data)
 		draw_data->per_wall_dist = dda.side_dist_x - dda.delta_x;
 	else
 		draw_data->per_wall_dist = dda.side_dist_y - dda.delta_y;
-	if (dda.hit >= 'D')
-		draw_data->door = 1;
 	draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
 }
 
@@ -109,13 +107,14 @@ void	draw_frame(t_data *md)
 	t_ray		ray_vect;
 	t_dda		dda;
 	int			x;
-	t_draw_data	draw_data; 
+	t_draw_data	draw_data;
 
+	md->can_open[0] = 0;
+	md->can_open[1] = 0;
 	md->redraw = 0;
 	x = -1;
 	while (++x < SCRNWIDTH)
 	{
-		draw_data.door = 0;
 		ray_vect = init_ray(md, x);
 		dda = init_dda(md->player);
 		get_deltas(ray_vect, &dda);
