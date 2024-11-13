@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 13:08:24 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:24:44 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_data	*init_data(void)
 	data->redraw = 0;
 	data->can_open[0] = 0;
 	data->can_open[1] = 0;
-	mlx_mouse_move(data->mlx, data->mlx_win, SCRNWIDTH / 2, SCRNHEIGHT / 2);
-	mlx_mouse_hide(data->mlx, data->mlx_win);
 	return (data);
 }
 

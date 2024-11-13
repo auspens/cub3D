@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:12:22 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:42:01 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct img_data {
 	int		img_endian;
 	int		width;
 	int		height;
+	int		scale;
 }	t_img_data;
 
 typedef struct s_tx
@@ -107,6 +108,14 @@ typedef struct s_door {
 	int timer;
 }	t_door;
 
+typedef struct m_map_colors
+{
+	int	s;
+	int	d;
+	int	w;
+	int	p;
+}	t_m_map_colors;
+
 typedef struct data {
 	void		*mlx;
 	void		*mlx_win;
@@ -120,12 +129,12 @@ typedef struct data {
 	char		**map;
 	struct timeval	oldtime;
 	double		elapsed;
-	t_door	door;
-	int can_open[2];
-	int redraw;
+	t_door		door;
+	int			can_open[2];
+	int			redraw;
+	t_img_data	m_map;
+	t_m_map_colors	m_map_colors;
 }	t_data;
-
-
 
 /*read_file*/
 int			open_mapfile(char *path);
@@ -136,18 +145,18 @@ void		get_input(t_data *data, int fd, int size);
 void		clean_exit(int code, char *msg, t_data *data);
 void		free_data(t_data *data);
 void		free_array(char **array);
-void		exit_at_reading_input(t_data *data, int fd, char **arr, char *msg);
-
 
 /*check_map*/
 void		check_valid_map(t_data *data);
+
+/*parcing_utils.c*/
+void		trim_newlines(t_data *data);
+int			char_ind(char *str, char c);
 
 /*draw map*/
 void		draw_frame(t_data *md);
 void	calc_line_height(t_dda dda, t_draw_data *draw_data);
 void	perform_dda(t_dda *dda, char **map);
-
-
 
 /*map_utils*/
 void		map_error(int fd, t_data *data, char *line, int error);
@@ -174,8 +183,12 @@ void		set_hooks(t_data *data);
 void		move_player(t_data *data, int key);
 void		rotate_player(t_data *data, int key);
 
-
 /*parce_color*/
 int			parce_color(t_data *data, char **lines, int fd);
+
+/*minimap.c*/
+void		init_minimap(t_data *data);
+void		draw_minimap(t_data *data);
+
 
 #endif

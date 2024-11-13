@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:56:00 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:07:01 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
-	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr));
+	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr)); //looks weird here, should we include this in the map?
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)
@@ -109,8 +109,8 @@ void	get_map(t_data *data, char *line, int fd, int size)
 	char	**newmap;
 
 	newmap = ft_calloc(size + 1, sizeof(char *));
-	if (!newmap)
-		map_error(fd, data, line, -1);
+	// if (!newmap)
+	// 	map_error(fd, data, line, -1);
 	idx = -1;
 	if (data->map)
 	{

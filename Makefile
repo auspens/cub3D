@@ -20,14 +20,15 @@ SRCS = map_parcing/check_map.c \
 		image_render.c \
 		map_parcing/read_file.c \
 		map_parcing/parce_color.c \
+		map_parcing/parcing_utils.c \
 		main.c \
 		clean_exit.c \
 		utils.c \
-		map_utils.c \
 		texture_utils.c \
 		draw_map.c \
 		hooks.c \
-		player_movements.c
+		player_movements.c \
+		minimap.c
 
 OBJS = $(SRCS:.c=.o)
 

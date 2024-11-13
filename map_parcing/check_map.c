@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:53:40 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:48:48 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	char_ind(char *str, char c)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == c)
-			return (i);
-	}
-	return (-1);
-}
 
 int	should_be_wall(t_data *data, int x, int y)
 {
@@ -101,11 +88,12 @@ void	set_door(t_data *data, int x, int y)
 
 void	check_valid_map(t_data *data)
 {
-	int	x;
-	int	y;
-	char c;
+	int		x;
+	int		y;
+	char	c;
 
 	y = -1;
+	trim_newlines(data);
 	while (data->map[++y])
 	{
 		x = -1;

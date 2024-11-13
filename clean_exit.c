@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:05:33 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:14:34 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	free_txt(t_data *data)
 		destroy_texture(data, data->txt->n);
 	if (data->txt->w)
 		destroy_texture(data, data->txt->w);
+	if (data->txt->dr)
+		destroy_texture(data, data->txt->dr);
 	free(data->txt);
 }
 

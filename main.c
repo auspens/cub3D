@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:33:10 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:21:21 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	timer(void *data_passed)
 	if (data->redraw)
 	{
 		draw_frame(data);
+		draw_minimap(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->m_map.mlx_img, 0, 0);
 	}
 	return (0);
 }
@@ -80,6 +82,9 @@ int	main(int argc, char **argv)
 	check_valid_map(data);
 	draw_frame(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	init_minimap(data);
+	mlx_mouse_move(data->mlx, data->mlx_win, SCRNWIDTH / 2, SCRNHEIGHT / 2);
+	mlx_mouse_hide(data->mlx, data->mlx_win);
 	set_hooks(data);
 	mlx_loop_hook(data->mlx, &timer, (void *)data);
 	mlx_loop(data->mlx);

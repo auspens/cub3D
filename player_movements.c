@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:39:30 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:38:43 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:15:51 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int can_walk(t_data *data, int x, int y)
 
 void	make_step(t_data *data, t_coord step)
 {
-	int y;
-	int new_y;
-	int x;
-	int new_x;
+	int	y;
+	int	new_y;
+	int	x;
+	int	new_x;
 
 	y = (int)data->player.y;
 	new_y = (int)(data->player.y + step.y);
@@ -52,7 +52,7 @@ void	move_player(t_data *data, int key)
 		step = rotate_vector(data->dir, -PI / 2);
 	else if (key == XK_d)
 		step = rotate_vector(data->dir, PI / 2);
-	dist = 0.2; 
+	dist = 0.2;
 	step.x *= dist;
 	step.y *= dist;
 	make_step(data, step);
@@ -64,7 +64,7 @@ void	rotate_player(t_data *data, int key)
 
 	if (key == XK_Right)
 		angle = 0.05 * PI;
-	else 
+	else
 		angle = 0.05 * -PI;
 	data->dir = rotate_vector(data->dir, angle);
 	data->plane = rotate_vector(data->plane, angle);
