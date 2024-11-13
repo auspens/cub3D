@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:26:11 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:06:52 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	set_door(t_data *data, int x, int y)
 	data->door.y = y;
 	data->door.state = 0;
 	data->door.open_ratio = 0;
+	data->door.timer = 0;
 }
 
 void	check_valid_map(t_data *data)

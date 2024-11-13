@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:39:14 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:12:22 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_door {
 	int y;
 	int state;
 	double	open_ratio;
+	int timer;
 }	t_door;
 
 typedef struct data {

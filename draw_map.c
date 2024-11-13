@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:34:44 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:19:32 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,25 @@ void	calc_line_height(t_dda dda, t_draw_data *draw_data)
 	draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
 }
 
-void	draw_frame(t_data *md)
+void	draw_frame(t_data *data)
 {
 	t_ray		ray_vect;
 	t_dda		dda;
 	int			x;
 	t_draw_data	draw_data;
 
-	md->can_open[0] = 0;
-	md->can_open[1] = 0;
-	md->redraw = 0;
+	data->can_open[0] = 0;
+	data->can_open[1] = 0;
+	data->redraw = 0;
 	x = -1;
 	while (++x < SCRNWIDTH)
 	{
-		ray_vect = init_ray(md, x);
-		dda = init_dda(md->player);
+		ray_vect = init_ray(data, x);
+		dda = init_dda(data->player);
 		get_deltas(ray_vect, &dda);
-		perform_dda(&dda, md->map);
+		perform_dda(&dda, data->map);
 		calc_line_height(dda, &draw_data);
-		calc_wall_txtr_x(dda, &draw_data, md, ray_vect);
-		draw_line_to_img(md, x, &draw_data);
+		calc_wall_txtr_x(dda, &draw_data, data, ray_vect);
+		draw_line_to_img(data, x, &draw_data);
 	}
 }

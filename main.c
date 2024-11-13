@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:36:19 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:33:10 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,46 @@
 int	timer(void *data_passed)
 {
 	t_data	*data;
-	struct timeval time;
+	//struct timeval time;
 
 	data = data_passed;
-	gettimeofday(&time, 0);
-	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
-				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
-	data->oldtime = time;
+	//gettimeofday(&time, 0);
+	//data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
+	//			(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
+	//data->oldtime = time;
 	//printf("elapsed %f microsec\n", data->elapsed);
-	if (data->door.state == 1)
+	if (data->door.state == 1) //opening
 	{
-		data->door.open_ratio += data->elapsed;
+		data->door.open_ratio += 0.002;
 		if (data->door.open_ratio >= 1)
 		{
 			data->door.open_ratio = 1;
-			data->door.state = 2;
-			data->redraw = 1;
+			data->door.state = 2; //open
 		}
+		data->redraw = 1;
 		//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 	}
-	if (data->door.state == 1 || data->redraw)
+	if (data->door.state == 2)
+	{
+		data->door.timer += 1;
+		if (data->door.timer >= 1000000 && ((int)data->player.x != data->door.x || (int)data->player.y != data->door.y))
+		{
+			data->door.state = 3;
+			data->door.timer = 0;
+		}
+	}
+	if (data->door.state == 3) //closing
+	{
+		data->door.open_ratio -= 0.002;
+		if (data->door.open_ratio <= 0)
+		{
+			data->door.open_ratio = 0;
+			data->door.state = 0; //closed
+		}
+		data->redraw = 1;
+		//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
+	}
+	if (data->redraw)
 	{
 		draw_frame(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);

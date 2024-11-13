@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/09 12:05:50 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:24:56 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 
 int check_door_state(t_draw_data *draw, t_data *data)
 {
-	if (data->door.state == 2)
+	if (data->door.state == 2) //open
 		return (1);
-	if (data->door.state == 0)
+	if (data->door.state == 0) //closed
 		return (0);
-	if (draw->wall_x > 1 - data->door.open_ratio)
-		return (1);
+	if (draw->wall_x > 1 - data->door.open_ratio) //openinig or closing
+ 		return (1);
 	return (0);
 }
 float dist_to_door(t_coord player, t_dda dda)
@@ -59,7 +59,7 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		calc_wall_txtr_x(dda, draw, data, ray);
 		return ;
 	}
-	if (data->door.state == 1)
+	if (data->door.state == 1 || data->door.state == 3)
 		draw->txtr_x += data->door.open_ratio * (double)draw->txtr->width;
 	else if (data->door.state == 0 && dist_to_door(data->player, dda) < 2.5)
 	{
