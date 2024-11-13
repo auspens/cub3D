@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:55:01 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:07:47 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,29 @@ int	key_press(int key, void *data_passed)
 	return (0);
 }
 
+int	mouse_move(int x, int y, void *data_passed)
+{
+	t_data	*data;
+	double	angle;
+
+	(void)y;
+	data = data_passed;
+	if (x == SCRNWIDTH / 2)
+		return (0);
+	angle = ((double)(x - SCRNWIDTH / 2) / (double)SCRNWIDTH) * PI;
+	data->dir = rotate_vector(data->dir, angle);
+	data->plane = rotate_vector(data->plane, angle);
+	draw_frame(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	mlx_mouse_move(data->mlx, data->mlx_win, SCRNWIDTH / 2, SCRNHEIGHT / 2);
+	return (0);
+}
+
 void	set_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 17, 1L << 17, win_close, (void *)data);
 	mlx_hook(data->mlx_win, 02, 1L << 0, key_press, (void *)data);
+	mlx_hook(data->mlx_win, 06, 1L << 6, mouse_move, (void *)data);
+
 }
 
