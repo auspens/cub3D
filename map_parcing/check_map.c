@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 14:11:56 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:04:21 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	char_ind(char *str, char c)
 	int	i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
 		if (str[i] == c)
 			return (i);
@@ -101,7 +101,8 @@ void	check_valid_map(t_data *data)
 	{
 		while (data->map[y][++x] && data->map[y][x] != '\n')
 		{
-			if (should_be_wall(data, x, y) && (data->map[y][x] != '1' && data->map[y][x] != ' '))
+			if (should_be_wall(data, x, y) && (data->map[y][x] != '1'
+				&& data->map[y][x] != ' '))
 				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
 			if (!should_be_wall(data, x, y))
 			{

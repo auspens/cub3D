@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 11:47:29 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:34:52 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,6 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 	int	line_highest_p;
 	int	color;
 
-// /*this is temp before the textures are set*/
-// 	if (side == EAST)
-// 		color = 0xFF0000FF;
-// 	else if (side == WEST)
-// 		color = gen_trgb(255, 167, 226, 29);
-// 	else if (side == NORTH)
-// 		color = gen_trgb (255, 226, 128, 29);
-// 	else
-// 		color = gen_trgb(255, 88, 29, 226);
-// /*this is temp before the textures are set*/
 	y = -1;
 	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; //-10
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;

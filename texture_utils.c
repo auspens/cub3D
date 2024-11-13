@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:45:41 by auspensk          #+#    #+#             */
-/*   Updated: 2024/10/29 17:22:49 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:31:11 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ int	get_texture(char *addr, t_data *data, t_img_data **img_data)
 
 	if (*img_data)
 		return (1);
+	if (!addr)
+		return (1);
 	*img_data = ft_calloc(1, sizeof(t_img_data));
 	if (!*img_data)
 		clean_exit(1, "Failed to malloc", data);
+
 	tr_addr = ft_strtrim(addr, "\n");
 	(*img_data)->mlx_img = mlx_xpm_file_to_image
 		(data->mlx, tr_addr, &((*img_data)->width), &((*img_data)->height));

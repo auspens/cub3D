@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 16:56:28 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:43:07 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_data	*init_data(void)
 	data->player.x = 0;
 	data->player.y = 0;
 	data->txt = ft_calloc(4, sizeof(t_img_data *));
-	mlx_mouse_move(data->mlx, data->mlx_win, SCRNWIDTH / 2, SCRNHEIGHT / 2);
 	return (data);
 }
 
