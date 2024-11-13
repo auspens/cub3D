@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:55:34 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:35:04 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int check_door_state(t_draw_data *draw, t_data *data)
+int check_door_state(t_draw_data *draw, t_door *door)
 {
-	if (data->door.state == 2) //open
+	if (door->state == 2) //open
 		return (1);
-	if (data->door.state == 0) //closed
+	if (door->state == 0) //closed
 		return (0);
-	if (draw->wall_x > 1 - data->door.open_ratio) //openinig or closing
+	if (draw->wall_x > 1 - door->open_ratio) //openinig or closing
  		return (1);
 	return (0);
 }
@@ -50,7 +50,17 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
 	int can_see_further;
 	
-	can_see_further = check_door_state(draw, data);
+	int i = -1;
+	t_door *door = NULL;
+	while (++i < 24 && data->doors[i].x)
+	{
+		if (data->doors[i].x == dda.map_x)
+		{
+			if (data->doors[i].y == dda.map_y)
+				door = &data->doors[i];
+		}
+	}
+	can_see_further = check_door_state(draw, door);
 	if (can_see_further)
 	{
 		dda.hit = 0;
@@ -59,13 +69,10 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		calc_wall_txtr_x(dda, draw, data, ray);
 		return ;
 	}
-	if (data->door.state == 1 || data->door.state == 3)
-		draw->txtr_x += data->door.open_ratio * (double)draw->txtr->width;
-	else if (data->door.state == 0 && dist_to_door(data->player, dda) < 2.5)
-	{
-		data->can_open[0] = dda.map_x;
-		data->can_open[1] = dda.map_y;
-	}
+	if (door->state == 1 || door->state == 3)
+		draw->txtr_x += door->open_ratio * (double)draw->txtr->width;
+	else if (door->state == 0 && dist_to_door(data->player, dda) < 2.5)
+		data->can_open = door;
 }
 
 
