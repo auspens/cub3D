@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/09 11:49:30 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:39:14 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <sys/time.h>
-
+# include <float.h>
 
 # ifndef SCRNWIDTH
-#  define SCRNWIDTH 1024
+#  define SCRNWIDTH 930
 # endif
 # ifndef SCRNHEIGHT
-#  define SCRNHEIGHT 800
+#  define SCRNHEIGHT 720
 # endif
 # define PI 3.14159265359
 
@@ -168,6 +168,11 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
 void		set_hooks(t_data *data);
+
+/*player_movements*/
+void		move_player(t_data *data, int key);
+void		rotate_player(t_data *data, int key);
+
 
 /*parce_color*/
 int			parce_color(t_data *data, char **lines, int fd);

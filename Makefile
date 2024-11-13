@@ -26,7 +26,8 @@ SRCS = map_parcing/check_map.c \
 		map_utils.c \
 		texture_utils.c \
 		draw_map.c \
-		hooks.c
+		hooks.c \
+		player_movements.c
 
 OBJS = $(SRCS:.c=.o)
 
