@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:34:52 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:44:12 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 	int	color;
 
 	y = -1;
-	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; //-10
+	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2;
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
 	draw->step = 1.0 * draw->txtr->height / draw->line_height;
 	if (line_highest_p < 0)
-		draw->txtr_pos = - line_highest_p * draw->step;
+		draw->txtr_pos = -line_highest_p * draw->step;
 	else
 		draw->txtr_pos = 0;
 	while (++y < SCRNHEIGHT)
 	{
 		if (y < line_highest_p)
 			my_pixel_put(data->img, x, y, data->color_ceiling);
-		if (y > line_highest_p && y < line_lowest_p)
+		if (y >= line_highest_p && y <= line_lowest_p)
 		{
 			draw->txtr_y = (int)draw->txtr_pos & (draw->txtr->height - 1);
 			draw->txtr_pos += draw->step;
