@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:06:52 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:53:40 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	char_ind(char *str, char c)
 	int	i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
 		if (str[i] == c)
 			return (i);

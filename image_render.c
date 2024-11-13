@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:24:56 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:55:34 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
 	int	color;
 
 	y = -1;
-	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2; 
+	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2;
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
 	draw->step = (double)draw->txtr->height / draw->line_height;
 	if (line_highest_p < 0)

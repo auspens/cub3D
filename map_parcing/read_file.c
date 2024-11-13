@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/08 12:38:45 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:56:00 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@ int	read_texture(char **lines, t_data *data, int fd)
 		res = get_texture(lines[1], data, &(data->txt->w));
 	if (res || lines[2])
 	{
-		if (lines[2])
-			printf ("Extra line in array\n");
 		free_array(lines);
 		close(fd);
 		clean_exit(1, "Err: incorrect input in textures\n", data);
 	}
+	free_array(lines);
 	return (1);
 }
 
@@ -60,7 +59,10 @@ int	check_line(char *line, t_data *data, int fd)
 	char	*trimmed_line;
 
 	if (*line == '\n')
+	{
+		free(line);
 		return (0);
+	}
 	trimmed_line = ft_strtrim(line, " \n");
 	split_line = ft_split(trimmed_line, ' ');
 	free (line);
@@ -76,6 +78,7 @@ int	check_line(char *line, t_data *data, int fd)
 		close(fd);
 		clean_exit(1, "Err: incorrect input in textures and colors\n", data);
 	}
+	free_array(split_line);
 	return (0);
 }
 
@@ -96,14 +99,7 @@ void	get_input(t_data *data, int fd, int size)
 		free(line);
 		line = get_next_line(fd);
 	}
-	/*here add a function to analyse the contents of the line*/
 	get_map(data, line, fd, size);
-	// data->color_ceiling = gen_trgb(255, 56, 178, 239);
-	// data->color_floor = gen_trgb(255, 63, 193, 37);
-	// get_texture("./textures/colorstone.xpm\n", data, &(data->txt->e));
-	// get_texture("./textures/greystone.xpm\n", data, &(data->txt->w));
-	// get_texture("./textures/purplestone.xpm\n", data, &(data->txt->s));
-	// get_texture("./textures/eagle.xpm\n", data, &(data->txt->n));
 	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr));
 }
 
