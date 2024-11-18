@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 17:07:01 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:26:15 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	open_mapfile(char *path)
 	}
 	return (fd);
 }
-
 
 int	read_texture(char **lines, t_data *data, int fd)
 {
@@ -109,8 +108,8 @@ void	get_map(t_data *data, char *line, int fd, int size)
 	char	**newmap;
 
 	newmap = ft_calloc(size + 1, sizeof(char *));
-	// if (!newmap)
-	// 	map_error(fd, data, line, -1);
+	if (!newmap)
+		newmap_error(fd, data, line);
 	idx = -1;
 	if (data->map)
 	{

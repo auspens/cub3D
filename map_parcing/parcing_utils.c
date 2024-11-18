@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:15:07 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 16:18:02 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:23:50 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,11 @@ void	trim_newlines(t_data *data)
 			map_ended = 1;
 		}
 	}
+}
+
+void	newmap_error(int fd, t_data *data, char *line)
+{
+	close(fd);
+	free(line);
+	clean_exit(1, "Err:failed to malloc for map\n", data);
 }

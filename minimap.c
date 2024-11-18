@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 13:52:10 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 16:55:48 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:52:59 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	define_mmap_size(t_data *data)
 	else
 	{
 		data->m_map.width = SCRNWIDTH / 4;
-		data->m_map.scale = (double)data->m_map.width / (double)x;
+		data->m_map.scale = data->m_map.width / x;
 		data->m_map.width = x * data->m_map.scale;
 		data->m_map.height = y * data->m_map.scale;
 	}
@@ -54,19 +54,19 @@ void	define_mmap_size(t_data *data)
 
 void	draw_player(t_data *data)
 {
-	int	x;
-	int	y;
-	int	i;
-	int	j;
+	int		x;
+	int		y;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
-	x = data->player.x * data->m_map.scale;
 	y = data->player.y * data->m_map.scale;
-	while (++i < data->m_map.scale)
+	while (++i < 4)
 	{
 		x = data->player.x * data->m_map.scale;
-		while (++j < data->m_map.scale)
+		j = 0;
+		while (++j < 4)
 		{
 			my_pixel_put(&(data->m_map), x, y, data->m_map_colors.p);
 			x++;
@@ -77,25 +77,21 @@ void	draw_player(t_data *data)
 
 void	draw_minimap(t_data *data)
 {
-	int	x;
-	int	y;
-	int	x_s;
-	int	y_s;
+	t_coord	coord;
+	t_coord	c_scaled;
+	char	nl;
 
-	x = -1;
-	while (++x < data->m_map.width)
+	coord.y = -1;
+	while (++coord.y < data->m_map.height)
 	{
-		y = -1;
-		while (++y < data->m_map.height)
+		coord.x = -1;
+		nl = 0;
+		while (++coord.x < data->m_map.width)
 		{
-			x_s = x / data->m_map.scale;
-			y_s = y / data->m_map.scale;
-			if (data->map[y_s][x_s] == '1')
-				my_pixel_put(&(data->m_map), x, y, data->m_map_colors.w);
-			else if (data->map[y_s][x_s] == 'D')
-				my_pixel_put(&(data->m_map), x, y, data->m_map_colors.d);
-			else
-				my_pixel_put(&(data->m_map), x, y, data->m_map_colors.s);
+			c_scaled.x = coord.x / data->m_map.scale;
+			c_scaled.y = coord.y / data->m_map.scale;
+			check_char_and_draw(coord, data, &nl,
+				data->map[(int)c_scaled.y][(int)c_scaled.x]);
 		}
 	}
 	draw_player(data);

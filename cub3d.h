@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 16:42:01 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:05:30 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct data {
 	int			redraw;
 	t_img_data	m_map;
 	t_m_map_colors	m_map_colors;
+	char		key_flag;
 }	t_data;
 
 /*read_file*/
@@ -152,14 +153,12 @@ void		check_valid_map(t_data *data);
 /*parcing_utils.c*/
 void		trim_newlines(t_data *data);
 int			char_ind(char *str, char c);
+void		newmap_error(int fd, t_data *data, char *line);
 
 /*draw map*/
 void		draw_frame(t_data *md);
 void	calc_line_height(t_dda dda, t_draw_data *draw_data);
 void	perform_dda(t_dda *dda, char **map);
-
-/*map_utils*/
-void		map_error(int fd, t_data *data, char *line, int error);
 
 /*image_render*/
 void		draw_line_to_img(t_data *data, int x, t_draw_data *draw);
@@ -179,6 +178,11 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 /*hooks*/
 void		set_hooks(t_data *data);
 
+/*key_hook_utils*/
+void		set_key_flag(t_data *data, char key);
+void		unset_key_flag(t_data *data, char key);
+char		key_is_pressed(char key_flag, char key);
+
 /*player_movements*/
 void		move_player(t_data *data, int key);
 void		rotate_player(t_data *data, int key);
@@ -189,6 +193,9 @@ int			parce_color(t_data *data, char **lines, int fd);
 /*minimap.c*/
 void		init_minimap(t_data *data);
 void		draw_minimap(t_data *data);
+
+/*minimap_2.c*/
+void		check_char_and_draw(t_coord coord, t_data *data, char *nl, char value);
 
 
 #endif

@@ -28,7 +28,9 @@ SRCS = map_parcing/check_map.c \
 		draw_map.c \
 		hooks.c \
 		player_movements.c \
-		minimap.c
+		minimap.c \
+		minimap_2.c \
+		key_hook_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
