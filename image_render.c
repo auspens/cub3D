@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 14:35:04 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/18 10:06:48 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,34 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int check_door_state(t_draw_data *draw, t_door *door)
+int check_door_state(t_draw_data *draw, t_door *door, t_sides side)
 {
 	if (door->state == 2) //open
 		return (1);
 	if (door->state == 0) //closed
 		return (0);
-	if (draw->wall_x > 1 - door->open_ratio) //openinig or closing
- 		return (1);
+	if (side == NORTH || side == EAST)
+	{
+		if (draw->wall_x > 1 - door->open_ratio) //openinig or closing
+ 			return (1);
+	}
+	else
+	{
+		if (draw->wall_x < door->open_ratio)
+			return (1);
+	}
 	return (0);
 }
 float dist_to_door(t_coord player, t_dda dda)
 {
+	float dist;
+	
 	if (dda.side == EAST || dda.side == WEST)
-		return (fabs(player.x - dda.map_x));
+		dist = fabs(player.x - dda.map_x);
 	else 
-		return (fabs(player.y - dda.map_y));
+		dist = fabs(player.y - dda.map_y);
+	printf("dist is %f\n", dist);
+	return (dist);
 }
 
 void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
@@ -60,7 +72,7 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 				door = &data->doors[i];
 		}
 	}
-	can_see_further = check_door_state(draw, door);
+	can_see_further = check_door_state(draw, door, dda.side);
 	if (can_see_further)
 	{
 		dda.hit = 0;
@@ -70,7 +82,10 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		return ;
 	}
 	if (door->state == 1 || door->state == 3)
+	{
+		//if (dda.side == NORTH || dda.side == EAST)
 		draw->txtr_x += door->open_ratio * (double)draw->txtr->width;
+	}
 	else if (door->state == 0 && dist_to_door(data->player, dda) < 2.5)
 		data->can_open = door;
 }

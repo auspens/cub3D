@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:33:10 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/18 09:54:04 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,42 @@ int	timer(void *data_passed)
 	//			(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
 	//data->oldtime = time;
 	//printf("elapsed %f microsec\n", data->elapsed);
-	if (data->door.state == 1) //opening
+	t_door *door;
+	int i = -1;
+	while (++i < data->num_drs)
 	{
-		data->door.open_ratio += 0.002;
-		if (data->door.open_ratio >= 1)
+		door = &data->doors[i];
+		if (door->state == 1) //opening
 		{
-			data->door.open_ratio = 1;
-			data->door.state = 2; //open
+			door->open_ratio += 0.002;
+			if (door->open_ratio >= 1)
+			{
+				door->open_ratio = 1;
+				door->state = 2; //open
+			}
+			data->redraw = 1;
+			//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 		}
-		data->redraw = 1;
-		//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
-	}
-	if (data->door.state == 2)
-	{
-		data->door.timer += 1;
-		if (data->door.timer >= 1000000 && ((int)data->player.x != data->door.x || (int)data->player.y != data->door.y))
+		if (door->state == 2)
 		{
-			data->door.state = 3;
-			data->door.timer = 0;
+			door->timer += 1;
+			if (door->timer >= 1000000 && ((int)data->player.x != door->x || (int)data->player.y != door->y))
+			{
+				door->state = 3;
+				door->timer = 0;
+			}
 		}
-	}
-	if (data->door.state == 3) //closing
-	{
-		data->door.open_ratio -= 0.002;
-		if (data->door.open_ratio <= 0)
+		if (door->state == 3) //closing
 		{
-			data->door.open_ratio = 0;
-			data->door.state = 0; //closed
+			door->open_ratio -= 0.002;
+			if (door->open_ratio <= 0)
+			{
+				door->open_ratio = 0;
+				door->state = 0; //closed
+			}
+			data->redraw = 1;
+			//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 		}
-		data->redraw = 1;
-		//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 	}
 	if (data->redraw)
 	{

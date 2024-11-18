@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 14:28:27 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/18 09:45:08 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,7 @@ t_data	*init_data(void)
 	data->player.y = 0;
 	data->txt = ft_calloc(5, sizeof(t_img_data *));
 	data->redraw = 0;
-	int i = -1;
-	while (++i < 24)
-	{
-		data->doors[i].x = 0;
-		data->doors[i].y = 0;
-	}
+	data->num_drs = 0;
 	data->can_open = NULL;
 	mlx_mouse_move(data->mlx, data->mlx_win, SCRNWIDTH / 2, SCRNHEIGHT / 2);
 	mlx_mouse_hide(data->mlx, data->mlx_win);
