@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 16:48:48 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:17:25 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,30 @@ void	set_direction(t_data *data, char c)
 	}
 }
 
-void	set_player(t_data *data, int x, int y)
+void	check_char_value(t_data *data, int x, int y, char c)
 {
-	if (data->player.x != 0)
-		clean_exit(1, "Err: more than one player\n", data);
-	data->player.x = (double)x + 0.5;
-	data->player.y = (double)y + 0.5;
-	set_direction(data, data->map[y][x]);
-	data->plane = rotate_vector(data->dir, PI / 2);
-	data->plane.x *= 0.66;
-	data->plane.y *= 0.66;
-	data->map[y][x] = '0';
-}
-
-void	set_door(t_data *data, int x, int y)
-{
-	data->door.x = x;
-	data->door.y = y;
-	data->door.state = 0;
-	data->door.open_ratio = 0;
-	data->door.timer = 0;
+	if (should_be_wall(data, x, y) && (c != '1' && c != ' '))
+		clean_exit(1, "Err: map has to be surrounded by walls\n", data);
+	if (!should_be_wall(data, x, y))
+	{
+		if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			set_player(data, x, y);
+		else if (c == 'D')
+			set_door(data, x, y);
+		else if (c == 'C')
+		{
+			set_sprite(data, x, y);
+			data->map[y][x] = '0';
+		}
+		else if (c != '0' && c != '1' && c != ' ')
+			clean_exit(1, "Err: not allowed chars in map\n", data);
+	}
 }
 
 void	check_valid_map(t_data *data)
 {
 	int		x;
 	int		y;
-	char	c;
 
 	y = -1;
 	trim_newlines(data);
@@ -98,19 +95,6 @@ void	check_valid_map(t_data *data)
 	{
 		x = -1;
 		while (data->map[y][++x] && data->map[y][x] != '\n')
-		{
-			c = data->map[y][x];
-			if (should_be_wall(data, x, y) && (c != '1' && c != ' '))
-				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
-			if (!should_be_wall(data, x, y))
-			{
-				if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-					set_player(data, x, y);
-				else if (c == 'D')
-					set_door(data, x, y);
-				else if (c != '0' && c != '1' && c != ' ')
-					clean_exit(1, "Err: not allowed chars in map\n", data);
-			}
-		}
+			check_char_value(data, x, y, data->map[y][x]);
 	}
 }

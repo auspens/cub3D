@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 14:05:30 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:45:13 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct s_tx
 typedef struct draw_data {
 	int			line_height;
 	double		wall_x;
-	int		txtr_x;
-	int		txtr_y;
+	int			txtr_x;
+	int			txtr_y;
 	double		per_wall_dist;
 	t_img_data	*txtr;
 	double		step;
@@ -102,10 +102,10 @@ typedef struct draw_data {
 
 typedef struct s_door {
 	int	x;
-	int y;
-	int state;
+	int	y;
+	int	state;
 	double	open_ratio;
-	int timer;
+	int	timer;
 }	t_door;
 
 typedef struct m_map_colors
@@ -115,6 +115,22 @@ typedef struct m_map_colors
 	int	w;
 	int	p;
 }	t_m_map_colors;
+
+typedef struct sprite {
+	t_img_data	*txtr;
+	t_coord		coord;
+	t_coord		rel;
+	t_coord		trans;
+	double		inv_det;
+	int			sprite_h;
+	int			sprite_w;
+	int			sprite_scr_x;
+	int			draw_start_x;
+	int			draw_start_y;
+	int			draw_end_x;
+	int			draw_end_y;
+	int			color;
+}	t_sprite;
 
 typedef struct data {
 	void		*mlx;
@@ -135,6 +151,8 @@ typedef struct data {
 	t_img_data	m_map;
 	t_m_map_colors	m_map_colors;
 	char		key_flag;
+	t_sprite	sprite;
+	double		z_buf[SCRNWIDTH];
 }	t_data;
 
 /*read_file*/
@@ -149,6 +167,12 @@ void		free_array(char **array);
 
 /*check_map*/
 void		check_valid_map(t_data *data);
+void		set_direction(t_data *data, char c);
+
+/*set_map_items*/
+void		set_player(t_data *data, int x, int y);
+void		set_sprite(t_data *data, int x, int y);
+void		set_door(t_data *data, int x, int y);
 
 /*parcing_utils.c*/
 void		trim_newlines(t_data *data);
@@ -157,12 +181,13 @@ void		newmap_error(int fd, t_data *data, char *line);
 
 /*draw map*/
 void		draw_frame(t_data *md);
-void	calc_line_height(t_dda dda, t_draw_data *draw_data);
-void	perform_dda(t_dda *dda, char **map);
+void		calc_line_height(t_dda dda, t_draw_data *draw_data);
+void		perform_dda(t_dda *dda, char **map);
 
 /*image_render*/
 void		draw_line_to_img(t_data *data, int x, t_draw_data *draw);
 void		calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray);
+unsigned int	my_pixel_get(t_img_data *img, int x, int y);
 
 /*utils*/
 int			gen_trgb(int opacity, int red, int green, int blue);
@@ -172,7 +197,6 @@ t_data		*init_data(void);
 t_coord		rotate_vector(t_coord src, double angle);
 
 /*texture_utils*/
-int			get_txt_color(t_img_data img, t_sides side, int x, int y);
 int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 
 /*hooks*/
@@ -190,12 +214,15 @@ void		rotate_player(t_data *data, int key);
 /*parce_color*/
 int			parce_color(t_data *data, char **lines, int fd);
 
-/*minimap.c*/
+/*minimap*/
 void		init_minimap(t_data *data);
 void		draw_minimap(t_data *data);
 
-/*minimap_2.c*/
+/*minimap_2*/
 void		check_char_and_draw(t_coord coord, t_data *data, char *nl, char value);
+
+/*draw_sprites*/
+void		draw_sprite(t_data *data);
 
 
 #endif
