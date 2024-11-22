@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 09:54:04 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:42:36 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 int	timer(void *data_passed)
 {
 	t_data	*data;
-	//struct timeval time;
+	struct timeval time;
 
 	data = data_passed;
-	//gettimeofday(&time, 0);
-	//data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
-	//			(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
-	//data->oldtime = time;
+	if (data->frames != ULONG_MAX)
+		data->frames++;
+	else 
+		data->frames = 0;
+	gettimeofday(&time, 0);
+	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
+				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
+	data->oldtime = time;
 	//printf("elapsed %f microsec\n", data->elapsed);
 	t_door *door;
 	int i = -1;
@@ -31,27 +35,24 @@ int	timer(void *data_passed)
 		door = &data->doors[i];
 		if (door->state == 1) //opening
 		{
-			door->open_ratio += 0.002;
+			door->open_ratio += data->elapsed;
 			if (door->open_ratio >= 1)
 			{
 				door->open_ratio = 1;
 				door->state = 2; //open
+				door->tm_stamp = data->oldtime.tv_sec;
 			}
 			data->redraw = 1;
 			//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 		}
 		if (door->state == 2)
 		{
-			door->timer += 1;
-			if (door->timer >= 1000000 && ((int)data->player.x != door->x || (int)data->player.y != door->y))
-			{
+			if (data->oldtime.tv_sec - door->tm_stamp > 5 && ((int)data->player.x != door->x || (int)data->player.y != door->y))
 				door->state = 3;
-				door->timer = 0;
-			}
 		}
 		if (door->state == 3) //closing
 		{
-			door->open_ratio -= 0.002;
+			door->open_ratio -= data->elapsed;
 			if (door->open_ratio <= 0)
 			{
 				door->open_ratio = 0;
@@ -61,7 +62,7 @@ int	timer(void *data_passed)
 			//printf("data->door.open_ratio is %f\n", data->door.open_ratio);
 		}
 	}
-	if (data->redraw)
+	if (data->redraw || data->sprite)
 	{
 		draw_frame(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);

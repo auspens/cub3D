@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 09:47:44 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:58:02 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,15 @@ void	set_door(t_data *data, int x, int y)
 	door->y = y;
 	door->state = 0;
 	door->open_ratio = 0;
-	door->timer = 0;
+	door->tm_stamp = 0;
 	data->num_drs++;
+	door->sprite.pos.x = x + 0.5;
+	door->sprite.pos.y = y + 0.5;
+	door->sprite.size = 32;
+	door->sprite.moves = 4;
+	get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
+	//door->sprite.size = door->sprite.t->height
+	//door->sprite.moves = door->sprite.t->width / door->sprite.size;
 }
 
 void	check_valid_map(t_data *data)

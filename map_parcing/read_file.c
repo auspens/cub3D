@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:56:00 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/20 09:47:51 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
-	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr));
+	get_texture("./textures/d1.xpm\n", data, &(data->txt->dr));
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)

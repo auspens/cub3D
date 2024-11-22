@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 10:06:48 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:11:45 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ float dist_to_door(t_coord player, t_dda dda)
 		dist = fabs(player.x - dda.map_x);
 	else 
 		dist = fabs(player.y - dda.map_y);
-	printf("dist is %f\n", dist);
 	return (dist);
 }
 
@@ -72,6 +71,8 @@ void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 				door = &data->doors[i];
 		}
 	}
+	if (door && door->state)
+		data->sprite = &door->sprite;
 	can_see_further = check_door_state(draw, door, dda.side);
 	if (can_see_further)
 	{
