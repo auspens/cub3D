@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:32:45 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:52:40 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,18 @@ void	set_door(t_data *data, int x, int y)
 	data->num_drs++;
 	door->sprite.pos.x = x + 0.5;
 	door->sprite.pos.y = y + 0.5;
-	door->sprite.size = 32;
-	door->sprite.moves = 4;
-	get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
-	//door->sprite.size = door->sprite.t->height
-	//door->sprite.moves = door->sprite.t->width / door->sprite.size;
+	if (data->num_drs % 2 == 1)
+		get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
+	else
+		get_texture("./textures/tree.xpm\n", data, &(door->sprite.t));
+	door->sprite.size = door->sprite.t->height;
+	door->sprite.moves = door->sprite.t->width / door->sprite.size;
+	door->sprite.scale = 128 / door->sprite.size;
+	if (door->sprite.scale < 1)
+		door->sprite.scale = 1;
+		
+
+	
 }
 
 void	check_valid_map(t_data *data)

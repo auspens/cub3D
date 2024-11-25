@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 12:59:05 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:21:19 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_sprite
   t_img_data *t;
   int size;
   int moves;
+  int scale;
 }	t_sprite;
 
 typedef struct s_door {
