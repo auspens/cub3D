@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/22 13:25:00 by eleonora         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:22:43 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void handle_sprite(t_data *data)
     if (trpos.y <= 0)
 		return ;
 
-	int scale = 3;
+	int scale = 4;
 	int sprite_side = (int)(SCRNHEIGHT / (trpos.y)) / scale;
 	
 	int fl_offset = (int)((SCRNHEIGHT / (trpos.y)) * (1 - 1.0/scale) / 2);
@@ -175,7 +175,7 @@ void handle_sprite(t_data *data)
 	if (!sprite.moves)
 		move = 0;
 	else 
-		move = (data->frames / 10) % sprite.moves;
+		move = (data->oldtime.tv_sec * 4 + data->oldtime.tv_usec / 250000) % sprite.moves;
 	//printf("move is %i\n", move);
     for (int stripe = drawStartX; stripe < drawEndX; stripe++)
     {
