@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/19 14:45:13 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:08:50 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,22 +116,6 @@ typedef struct m_map_colors
 	int	p;
 }	t_m_map_colors;
 
-typedef struct sprite {
-	t_img_data	*txtr;
-	t_coord		coord;
-	t_coord		rel;
-	t_coord		trans;
-	double		inv_det;
-	int			sprite_h;
-	int			sprite_w;
-	int			sprite_scr_x;
-	int			draw_start_x;
-	int			draw_start_y;
-	int			draw_end_x;
-	int			draw_end_y;
-	int			color;
-}	t_sprite;
-
 typedef struct data {
 	void		*mlx;
 	void		*mlx_win;
@@ -151,8 +135,6 @@ typedef struct data {
 	t_img_data	m_map;
 	t_m_map_colors	m_map_colors;
 	char		key_flag;
-	t_sprite	sprite;
-	double		z_buf[SCRNWIDTH];
 }	t_data;
 
 /*read_file*/
@@ -171,7 +153,6 @@ void		set_direction(t_data *data, char c);
 
 /*set_map_items*/
 void		set_player(t_data *data, int x, int y);
-void		set_sprite(t_data *data, int x, int y);
 void		set_door(t_data *data, int x, int y);
 
 /*parcing_utils.c*/
@@ -202,11 +183,6 @@ int			get_texture(char *addr, t_data *data, t_img_data **img_data);
 /*hooks*/
 void		set_hooks(t_data *data);
 
-/*key_hook_utils*/
-void		set_key_flag(t_data *data, char key);
-void		unset_key_flag(t_data *data, char key);
-char		key_is_pressed(char key_flag, char key);
-
 /*player_movements*/
 void		move_player(t_data *data, int key);
 void		rotate_player(t_data *data, int key);
@@ -220,9 +196,6 @@ void		draw_minimap(t_data *data);
 
 /*minimap_2*/
 void		check_char_and_draw(t_coord coord, t_data *data, char *nl, char value);
-
-/*draw_sprites*/
-void		draw_sprite(t_data *data);
 
 
 #endif

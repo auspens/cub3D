@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/19 16:17:25 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:08:34 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,6 @@ void	check_char_value(t_data *data, int x, int y, char c)
 			set_player(data, x, y);
 		else if (c == 'D')
 			set_door(data, x, y);
-		else if (c == 'C')
-		{
-			set_sprite(data, x, y);
-			data->map[y][x] = '0';
-		}
 		else if (c != '0' && c != '1' && c != ' ')
 			clean_exit(1, "Err: not allowed chars in map\n", data);
 	}

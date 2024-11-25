@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:55:34 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:04:35 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int check_door_state(t_draw_data *draw, t_data *data)
+int	check_door_state(t_draw_data *draw, t_data *data)
 {
 	if (data->door.state == 2) //open
 		return (1);
@@ -38,18 +38,18 @@ int check_door_state(t_draw_data *draw, t_data *data)
  		return (1);
 	return (0);
 }
-float dist_to_door(t_coord player, t_dda dda)
+float	dist_to_door(t_coord player, t_dda dda)
 {
 	if (dda.side == EAST || dda.side == WEST)
 		return (fabs(player.x - dda.map_x));
-	else 
+	else
 		return (fabs(player.y - dda.map_y));
 }
 
-void handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
+void	handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
-	int can_see_further;
-	
+	int	can_see_further;
+
 	can_see_further = check_door_state(draw, data);
 	if (can_see_further)
 	{
@@ -89,7 +89,6 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	draw->txtr_x = (int)(draw->wall_x * draw->txtr->width);
 	if (dda.side == SOUTH || dda.side == WEST)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
-	//printf("side is %i wall_x is %f and txtr_x is %d\n", dda.side, draw->wall_x, draw->txtr_x);
 	if (dda.hit == 'D')
 		handle_door(dda, draw, data, ray);
 }

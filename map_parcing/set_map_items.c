@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/19 14:44:30 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:06:39 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ void	set_player(t_data *data, int x, int y)
 	data->plane.x *= 0.66;
 	data->plane.y *= 0.66;
 	data->map[y][x] = '0';
-}
-
-void	set_sprite(t_data *data, int x, int y)
-{
-	data->sprite.coord.x = (double)x + 0.5;
-	data->sprite.coord.y = (double)y + 0.5;
 }
 
 void	set_door(t_data *data, int x, int y)

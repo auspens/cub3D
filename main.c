@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 14:17:15 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:07:27 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,6 @@ int	timer(void *data_passed)
 	}
 	if (data->redraw)
 	{
-		if (key_is_pressed(data->key_flag, 1))
-			move_player(data, XK_w);
-		if (key_is_pressed(data->key_flag, 2))
-			move_player(data, XK_a);
-		if (key_is_pressed(data->key_flag, 3))
-			move_player(data, XK_s);
-		if (key_is_pressed(data->key_flag, 4))
-			move_player(data, XK_d);
-		if (key_is_pressed(data->key_flag, 5))
-			rotate_player(data, XK_Left);
-		if (key_is_pressed(data->key_flag, 6))
-			rotate_player(data, XK_Right);
 		draw_frame(data);
 		draw_minimap(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);

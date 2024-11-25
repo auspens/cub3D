@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/19 15:16:35 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:07:42 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,7 @@ void	draw_frame(t_data *data)
 		get_deltas(ray_vect, &dda);
 		perform_dda(&dda, data->map);
 		calc_line_height(dda, &draw_data);
-		data->z_buf[x] = draw_data.per_wall_dist;
 		calc_wall_txtr_x(dda, &draw_data, data, ray_vect);
 		draw_line_to_img(data, x, &draw_data);
 	}
-	draw_sprite(data);
 }
