@@ -6,15 +6,17 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:39:30 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 17:15:51 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:24:34 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int can_walk(t_data *data, int x, int y)
+int	can_walk(t_data *data, int x, int y)
 {
-	char c = data->map[y][x];
+	char	c;
+
+	c = data->map[y][x];
 	if (c == '0')
 		return (1);
 	if (c == 'D' && data->door.state == 2)

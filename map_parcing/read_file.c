@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:06:21 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:21:54 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
-	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr)); //looks weird here, should we include this in the map?
+	get_texture("./textures/abstract.xpm\n", data, &(data->txt->dr));
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)
