@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:35:23 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:43:59 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	open_mapfile(char *path)
 {
@@ -28,7 +28,6 @@ int	open_mapfile(char *path)
 	}
 	return (fd);
 }
-
 
 int	read_texture(char **lines, t_data *data, int fd)
 {
@@ -100,6 +99,7 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
+	get_texture("./textures/d1.xpm\n", data, &(data->txt->dr));
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)
@@ -109,7 +109,7 @@ void	get_map(t_data *data, char *line, int fd, int size)
 
 	newmap = ft_calloc(size + 1, sizeof(char *));
 	if (!newmap)
-		map_error(fd, data, line, -1);
+		newmap_error(fd, data, line);
 	idx = -1;
 	if (data->map)
 	{

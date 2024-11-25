@@ -20,22 +20,37 @@ SRCS = map_parcing/check_map.c \
 		image_render.c \
 		map_parcing/read_file.c \
 		map_parcing/parce_color.c \
-		map_parcing/parcing_utils.c \
-		map_parcing/set_map_items.c \
 		main.c \
 		clean_exit.c \
 		utils.c \
+		map_utils.c \
 		texture_utils.c \
 		draw_map.c \
 		hooks.c \
-		player_movements.c \
-		minimap.c \
-		minimap_2.c \
-		door_utils.c \
-		door_render.c \
-		sprites.c
+		player_movements.c
+
+SRCS_BONUS = bonus/map_parcing/check_map_bonus.c \
+			bonus/image_render_bonus.c \
+			bonus/map_parcing/read_file_bonus.c \
+			bonus/map_parcing/parce_color_bonus.c \
+			bonus/map_parcing/parcing_utils_bonus.c \
+			bonus/map_parcing/set_map_items_bonus.c \
+			bonus/main_bonus.c \
+			bonus/clean_exit_bonus.c \
+			bonus/utils_bonus.c \
+			bonus/texture_utils_bonus.c \
+			bonus/draw_map_bonus.c \
+			bonus/hooks_bonus.c \
+			bonus/player_movements_bonus.c \
+			bonus/minimap_bonus.c \
+			bonus/minimap_2_bonus.c \
+			bonus/door_utils_bonus.c \
+			bonus/door_render_bonus.c \
+			bonus/sprites_bonus.c
 
 OBJS = $(SRCS:.c=.o)
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 INCL = -I/usr/include/ \
 		-I/usr/include/X11 \
@@ -56,8 +71,14 @@ $(MLX):
 %.o: %.c Makefile cub3d.h
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCL)
 
+bonus: .bonus
+
+.bonus: $(LIBFT) $(MLX) $(OBJS_BONUS) bonus/cub3d_bonus.h
+	$(CC) $(OBJS_BONUS) $(CFLAGS) -o $(NAME) $(MLX) $(LIBFT) $(INCL) -L/usr/lib -lXext -lX11 -lm -lz
+	@touch .bonus
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 	@make clean -C $(MLX_PATH)
 	@make clean -C $(LIBFT_PATH)
 
@@ -67,4 +88,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

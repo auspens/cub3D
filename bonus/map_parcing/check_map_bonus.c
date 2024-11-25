@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:04:21 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:43:42 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
-
-int	char_ind(char *str, char c)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == c)
-			return (i);
-	}
-	return (-1);
-}
+#include "../cub3d_bonus.h"
 
 int	should_be_wall(t_data *data, int x, int y)
 {
@@ -77,44 +64,56 @@ void	set_direction(t_data *data, char c)
 	}
 }
 
-void	set_player(t_data *data, int x, int y)
+void	check_char_value(t_data *data, int x, int y, char c)
 {
-	if (data->player.x != 0)
-		clean_exit(1, "Err: more than one player\n", data);
-	data->player.x = (double)x + 0.5;
-	data->player.y = (double)y + 0.5;
-	set_direction(data, data->map[y][x]);
-	data->plane = rotate_vector(data->dir, PI / 2);
-	data->plane.x *= 0.66;
-	data->plane.y *= 0.66;
-	data->map[y][x] = '0';
+	if (should_be_wall(data, x, y) && (c != '1' && c != ' '))
+		clean_exit(1, "Err: map has to be surrounded by walls\n", data);
+	if (!should_be_wall(data, x, y))
+	{
+		if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			set_player(data, x, y);
+		else if (c == 'D')
+			set_door(data, x, y);
+		else if (c != '0' && c != '1' && c != ' ')
+			clean_exit(1, "Err: not allowed chars in map\n", data);
+	}
+}
+
+void	set_door(t_data *data, int x, int y)
+{
+	t_door	*door;
+
+	door = &data->doors[data->num_drs];
+	door->x = x;
+	door->y = y;
+	door->state = 0;
+	door->open_ratio = 0;
+	door->tm_stamp = 0;
+	data->num_drs++;
+	door->sprite.pos.x = x + 0.5;
+	door->sprite.pos.y = y + 0.5;
+	if (data->num_drs % 2 == 1)
+		get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
+	else
+		get_texture("./textures/tree.xpm\n", data, &(door->sprite.t));
+	door->sprite.size = door->sprite.t->height;
+	door->sprite.moves = door->sprite.t->width / door->sprite.size;
+	door->sprite.scale = 128 / door->sprite.size;
+	if (door->sprite.scale < 1)
+		door->sprite.scale = 1;
 }
 
 void	check_valid_map(t_data *data)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
-	x = -1;
 	y = -1;
+	trim_newlines(data);
 	while (data->map[++y])
 	{
-		while (data->map[y][++x] && data->map[y][x] != '\n')
-		{
-			if (should_be_wall(data, x, y) && (data->map[y][x] != '1'
-				&& data->map[y][x] != ' '))
-				clean_exit(1, "Err: map has to be surrounded by walls\n", data);
-			if (!should_be_wall(data, x, y))
-			{
-				if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
-					|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
-					set_player(data, x, y);
-				else if (data->map[y][x] != '0' && data->map[y][x] != '1'
-					&& data->map[y][x] != ' ')
-					return (clean_exit
-						(1, "Err: not allowed chars in map\n", data));
-			}
-		}
 		x = -1;
+		while (data->map[y][++x] && data->map[y][x] != '\n')
+			check_char_value(data, x, y, data->map[y][x]);
 	}
 }

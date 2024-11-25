@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   door_render.c                                      :+:      :+:    :+:   */
+/*   door_render_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:28:10 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 14:29:07 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:44:17 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	check_door_state(t_draw_data *draw, t_door *door, t_sides side)
 {

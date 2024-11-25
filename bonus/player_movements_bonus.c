@@ -1,23 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_movements.c                                 :+:      :+:    :+:   */
+/*   player_movements_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:39:30 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 15:41:40 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:45:12 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
-void	step_forward(t_data *data, t_coord dir)
+int	can_walk(t_data *data, int x, int y)
 {
-	if (data->map[(int)data->player.y][(int)data->player.x + (int)dir.x] == '0')
-		data->player.x += dir.x;
-	if (data->map[(int)data->player.y + (int)dir.y][(int)data->player.x] == '0')
-		data->player.y += dir.y;
+	char	c;
+	int		i;
+	t_door	*door;
+
+	c = data->map[y][x];
+	i = -1;
+	if (c == '0')
+		return (1);
+	if (c == 'D')
+	{
+		while (++i < 24 && data->doors[i].x)
+		{
+			if (data->doors[i].x == x && data->doors[i].y == y)
+				door = &data->doors[i];
+		}
+		if (door && door->state == 2) //open
+			return (1);
+	}
+	return (0);
+}
+
+void	make_step(t_data *data, t_coord step)
+{
+	int	y;
+	int	new_y;
+	int	x;
+	int	new_x;
+
+	y = (int)data->player.y;
+	new_y = (int)(data->player.y + step.y);
+	x = (int)data->player.x;
+	new_x = (int)(data->player.x + step.x);
+	if (can_walk(data, new_x, y))
+		data->player.x += step.x;
+	if (can_walk(data, x, new_y))
+		data->player.y += step.y;
 }
 
 void	move_player(t_data *data, int key)
@@ -33,13 +65,10 @@ void	move_player(t_data *data, int key)
 		step = rotate_vector(data->dir, -PI / 2);
 	else if (key == XK_d)
 		step = rotate_vector(data->dir, PI / 2);
-	dist = 5000 / data->frames_ps;
+	dist = 0.2;
 	step.x *= dist;
 	step.y *= dist;
-	if (data->map[(int)data->player.y][(int)(data->player.x + step.x)] == '0')
-		data->player.x += step.x;
-	if (data->map[(int)(data->player.y + step.y)][(int)data->player.x] == '0')
-		data->player.y += step.y;
+	make_step(data, step);
 }
 
 void	rotate_player(t_data *data, int key)
@@ -47,9 +76,9 @@ void	rotate_player(t_data *data, int key)
 	double	angle;
 
 	if (key == XK_Right)
-		angle = 500 * PI / data->frames_ps;
+		angle = 0.05 * PI;
 	else
-		angle = 500 * -PI / data->frames_ps;
+		angle = 0.05 * -PI;
 	data->dir = rotate_vector(data->dir, angle);
 	data->plane = rotate_vector(data->plane, angle);
 }

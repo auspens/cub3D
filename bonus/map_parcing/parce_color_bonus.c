@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parce_color.c                                      :+:      :+:    :+:   */
+/*   parce_color_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:07:37 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:14:57 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:43:48 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 
 void	exit_at_reading_color(t_data *data, int fd, char **arr, char **colors)
