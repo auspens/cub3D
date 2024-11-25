@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:15:07 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 17:23:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:12:16 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	trim_newlines(t_data *data)
 			clean_exit(1, "Err: newline inside the map\n", data);
 		if (data->map[y][0] == '\n')
 		{
+			free(data->map[y]);
 			data->map[y] = NULL;
 			map_ended = 1;
 		}

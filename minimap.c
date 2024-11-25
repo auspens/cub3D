@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 13:52:10 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 12:52:59 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:33:46 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	draw_player(t_data *data)
 void	draw_minimap(t_data *data)
 {
 	t_coord	coord;
-	t_coord	c_scaled;
+	int		scaled_x;
+	int		scaled_y;
 	char	nl;
 
 	coord.y = -1;
@@ -88,10 +89,14 @@ void	draw_minimap(t_data *data)
 		nl = 0;
 		while (++coord.x < data->m_map.width)
 		{
-			c_scaled.x = coord.x / data->m_map.scale;
-			c_scaled.y = coord.y / data->m_map.scale;
-			check_char_and_draw(coord, data, &nl,
-				data->map[(int)c_scaled.y][(int)c_scaled.x]);
+			scaled_x = coord.x / data->m_map.scale;
+			scaled_y = coord.y / data->m_map.scale;
+			if (nl)
+				my_pixel_put(&(data->m_map), coord.x, coord.y,
+					data->m_map_colors.w);
+			else
+				check_char_and_draw(coord, data, &nl,
+					data->map[scaled_y][scaled_x]);
 		}
 	}
 	draw_player(data);

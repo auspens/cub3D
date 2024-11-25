@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:42:13 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:59:05 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,18 +139,16 @@ typedef struct data {
 	char		**map;
 	struct timeval	oldtime;
 	double		elapsed;
-	size_t	frames;
-	double buffer[SCRNWIDTH];
-	t_door	doors[24];
-	int num_drs;
-	t_door *can_open;
-	t_sprite *sprite;
-	int redraw;
+	size_t		frames;
+	double 		buffer[SCRNWIDTH];
+	t_door		doors[24];
+	int			num_drs;
+	t_door		*can_open;
+	t_sprite	*sprite;
+	int			redraw;
 	t_img_data	m_map;
 	t_m_map_colors	m_map_colors;
 }	t_data;
-
-
 
 
 /*read_file*/
@@ -214,5 +212,7 @@ void		draw_minimap(t_data *data);
 /*minimap_2*/
 void		check_char_and_draw(t_coord coord, t_data *data, char *nl, char value);
 
+/*door_utils*/
+void		iter_doors(t_data *data);
 
 #endif

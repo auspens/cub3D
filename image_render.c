@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:35:36 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:02:48 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int check_door_state(t_draw_data *draw, t_door *door, t_sides side)
+int	check_door_state(t_draw_data *draw, t_door *door, t_sides side)
 {
 	if (door->state == 2) //open
 		return (1);
@@ -46,6 +46,7 @@ int check_door_state(t_draw_data *draw, t_door *door, t_sides side)
 	}
 	return (0);
 }
+
 float	dist_to_door(t_coord player, t_dda dda)
 {
 	float dist;
@@ -59,7 +60,7 @@ float	dist_to_door(t_coord player, t_dda dda)
 
 void	handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
-	int can_see_further;
+	int	can_see_further;
 
 	int i = -1;
 	t_door *door = NULL;

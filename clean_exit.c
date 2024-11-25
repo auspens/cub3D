@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 13:14:34 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:18:04 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,24 @@ void	free_txt(t_data *data)
 
 void	free_data(t_data *data)
 {
+	int	i;
+
+	i = -1;
 	if (data->map)
 		free_array(data->map);
 	if (data->txt)
 		free_txt(data);
 	mlx_destroy_image(data->mlx, data->img->mlx_img);
+	free (data->img);
+	mlx_destroy_image(data->mlx, data->m_map.mlx_img);
+	while (data->doors[++i].sprite.t)
+	{
+		mlx_destroy_image(data->mlx, data->doors[i].sprite.t->mlx_img);
+		free(data->doors[i].sprite.t);
+	}
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
+	free(data->mlx);
 }
 
 void	clean_exit(int code, char *msg, t_data *data)
@@ -62,6 +73,7 @@ void	clean_exit(int code, char *msg, t_data *data)
 		write (2, msg, ft_strlen(msg));
 	if (data)
 		free_data(data);
+	free (data);
 	exit (code);
 }
 
