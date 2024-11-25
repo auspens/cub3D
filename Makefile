@@ -50,7 +50,7 @@ $(LIBFT):
 $(MLX):
 	@make -sC $(MLX_PATH)
 
-%.o: %.c
+%.o: %.c Makefile cub3d.h
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCL)
 
 clean:

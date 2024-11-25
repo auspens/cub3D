@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:39:30 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:24:34 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:37:54 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,23 @@
 int	can_walk(t_data *data, int x, int y)
 {
 	char	c;
+	int		i;
+	t_door	*door;
 
 	c = data->map[y][x];
+	i = -1;
 	if (c == '0')
 		return (1);
-	if (c == 'D' && data->door.state == 2)
-		return (1);
+	if (c == 'D')
+	{
+		while (++i < 24 && data->doors[i].x)
+		{
+			if (data->doors[i].x == x && data->doors[i].y == y)
+				door = &data->doors[i];
+		}
+		if (door && door->state == 2) //open
+			return (1);
+	}
 	return (0);
 }
 

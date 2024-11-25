@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:05:22 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:34:40 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ int	key_press(int key, void *data_passed)
 	data = data_passed;
 	if (key == XK_Escape)
 		win_close(data);
-	if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
+	else if (key == XK_w || key == XK_a || key == XK_s || key == XK_d)
 		move_player(data, key);
-	if (key == XK_Right || key == XK_Left)
+	else if (key == XK_Right || key == XK_Left)
 		rotate_player(data, key);
-	if (key == XK_space && data->door.state == 0
-		&& data->can_open[0] == data->door.x
-		&& data->can_open[1] == data->door.y)
-		data->door.state = 1;
+	else if (key == XK_space)
+	{
+		if (!data->can_open || data->can_open->state != 0)
+			return (0);
+		data->can_open->state = 1;
+	}
 	data->redraw = 1;
 	return (0);
 }

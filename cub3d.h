@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:08:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:42:13 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
+# include <limits.h>
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
 # include <X11/Xos.h>
@@ -29,10 +30,10 @@
 # include <float.h>
 
 # ifndef SCRNWIDTH
-#  define SCRNWIDTH 930
+#  define SCRNWIDTH 1024
 # endif
 # ifndef SCRNHEIGHT
-#  define SCRNHEIGHT 720
+#  define SCRNHEIGHT 776
 # endif
 # define PI 3.14159265359
 
@@ -100,12 +101,21 @@ typedef struct draw_data {
 	double		txtr_pos;
 }	t_draw_data;
 
+typedef struct s_sprite
+{
+  t_coord pos;
+  t_img_data *t;
+  int size;
+  int moves;
+}	t_sprite;
+
 typedef struct s_door {
 	int	x;
 	int	y;
 	int	state;
 	double	open_ratio;
-	int	timer;
+	time_t	tm_stamp;
+	t_sprite	sprite;
 }	t_door;
 
 typedef struct m_map_colors
@@ -129,13 +139,19 @@ typedef struct data {
 	char		**map;
 	struct timeval	oldtime;
 	double		elapsed;
-	t_door		door;
-	int			can_open[2];
-	int			redraw;
+	size_t	frames;
+	double buffer[SCRNWIDTH];
+	t_door	doors[24];
+	int num_drs;
+	t_door *can_open;
+	t_sprite *sprite;
+	int redraw;
 	t_img_data	m_map;
 	t_m_map_colors	m_map_colors;
-	char		key_flag;
 }	t_data;
+
+
+
 
 /*read_file*/
 int			open_mapfile(char *path);
@@ -172,6 +188,7 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y);
 
 /*utils*/
 int			gen_trgb(int opacity, int red, int green, int blue);
+unsigned int	my_pixel_get(t_img_data *img, int x, int y);
 void		my_pixel_put(t_img_data *data, int x, int y, int color);
 t_img_data	*new_img(t_data *data);
 t_data		*init_data(void);
