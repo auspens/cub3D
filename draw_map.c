@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:33:08 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:49:24 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ void handle_sprite(t_data *data)
     if (trpos.y <= 0)
 		return ;
 
-	int scale = 4;
-	int sprite_side = (int)(SCRNHEIGHT / (trpos.y)) / scale;
+	//int scale = 4;
+	int sprite_side = (int)(SCRNHEIGHT / (trpos.y)) / sprite.scale;
 
-	int fl_offset = (int)((SCRNHEIGHT / (trpos.y)) * (1 - 1.0/scale) / 2);
+	int fl_offset = (int)((SCRNHEIGHT / (trpos.y)) * (1 - 1.0/sprite.scale) / 2);
 
 	//printf("sprite side is %i and offeset to floor is %i\n", sprite_side, fl_offset);
 
