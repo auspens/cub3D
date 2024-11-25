@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 12:52:40 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:24:01 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	check_char_value(t_data *data, int x, int y, char c)
 
 void	set_door(t_data *data, int x, int y)
 {
-	t_door *door;
+	t_door	*door;
 
 	door = &data->doors[data->num_drs];
 	door->x = x;
@@ -101,9 +101,6 @@ void	set_door(t_data *data, int x, int y)
 	door->sprite.scale = 128 / door->sprite.size;
 	if (door->sprite.scale < 1)
 		door->sprite.scale = 1;
-		
-
-	
 }
 
 void	check_valid_map(t_data *data)

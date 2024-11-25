@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 13:02:26 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:34:55 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int	redraw(void *data_passed)
 	struct timeval	time;
 
 	data = data_passed;
-	// if (data->frames != ULONG_MAX)
-	// 	data->frames++;
-	// else
-	// 	data->frames = 0;
 	gettimeofday(&time, 0);
 	data->elapsed = (time.tv_sec - data->oldtime.tv_sec) + \
 				(time.tv_usec - data->oldtime.tv_usec) / (double)1000000;
@@ -38,7 +34,6 @@ int	redraw(void *data_passed)
 	}
 	return (0);
 }
-
 
 int	main(int argc, char **argv)
 {

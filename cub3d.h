@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 14:21:19 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:36:59 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,14 @@ void		newmap_error(int fd, t_data *data, char *line);
 
 /*draw map*/
 void		draw_frame(t_data *md);
-void		calc_line_height(t_dda dda, t_draw_data *draw_data);
 void		perform_dda(t_dda *dda, char **map);
+void		handle_sprite(t_data *data);
 
 /*image_render*/
-void		draw_line_to_img(t_data *data, int x, t_draw_data *draw);
+void		draw_line_to_img(t_data *data, int x, t_draw_data *draw, int y);
 void		calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray);
 unsigned int	my_pixel_get(t_img_data *img, int x, int y);
+void		calc_line_height(t_dda dda, t_draw_data *draw_data);
 
 /*utils*/
 int			gen_trgb(int opacity, int red, int green, int blue);
@@ -215,5 +216,8 @@ void		check_char_and_draw(t_coord coord, t_data *data, char *nl, char value);
 
 /*door_utils*/
 void		iter_doors(t_data *data);
+
+/*door_render*/
+void		handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray);
 
 #endif
