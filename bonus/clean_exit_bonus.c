@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 13:02:13 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:59:45 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_array(char **array)
 
 void	destroy_texture(t_data *data, t_img_data *txt)
 {
+	if (!txt)
+		return ;
 	if (txt->mlx_img)
 		mlx_destroy_image(data->mlx, txt->mlx_img);
 	free(txt);
@@ -53,16 +55,15 @@ void	free_data(t_data *data)
 		free_array(data->map);
 	if (data->txt)
 		free_txt(data);
+	while (++i < data->num_drs)
+	{
+		destroy_texture(data, data->doors[i].txtr);
+		destroy_texture(data, data->doors[i].sprite.t);
+	}
 	mlx_destroy_image(data->mlx, data->img->mlx_img);
 	free (data->img);
 	if (data->m_map.mlx_img)
 		mlx_destroy_image(data->mlx, data->m_map.mlx_img);
-	while (data->doors[++i].sprite.t)
-	{
-		if (data->doors[i].sprite.t->mlx_img)
-			mlx_destroy_image(data->mlx, data->doors[i].sprite.t->mlx_img);
-		free(data->doors[i].sprite.t);
-	}
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 13:05:42 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:41:18 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	check_char_value(t_data *data, int x, int y, char c)
 			clean_exit(1, "Err: not allowed chars in map\n", data);
 	}
 }
-
 
 void	check_valid_map(t_data *data)
 {

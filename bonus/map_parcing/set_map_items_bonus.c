@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 13:05:58 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:58:00 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	set_player(t_data *data, int x, int y)
 	data->map[y][x] = '0';
 }
 
-char *get_d_txtr_path(int num_dr)
+char	*get_d_txtr_path(int num_dr)
 {
-	char *num;
-	char *name;
-	char *path;
+	char	*num;
+	char	*name;
+	char	*path;
 
 	if (num_dr > 3)
 		path = ft_strdup("./textures/d.xpm");
@@ -50,34 +50,35 @@ char *get_d_txtr_path(int num_dr)
 	}
 	return (path);
 }
-void    set_sprite(t_data *data, int x, int y, t_door *door)
-{
-    int     sprite_fail;
 
-    door->sprite.pos.x = x + 0.5;
-    door->sprite.pos.y = y + 0.5;
-    if (data->num_drs % 2 == 1)
-        sprite_fail = get_texture("./textures/ducky.xpm\n",
-                data, &(door->sprite.t));
-    else
-        sprite_fail = get_texture("./textures/tree.xpm\n",
-                data, &(door->sprite.t));
-    if (sprite_fail)
-    {
-        perror("Sprite texture");
-        clean_exit(1, NULL, data);
-    }
-    door->sprite.size = door->sprite.t->height;
-    door->sprite.moves = door->sprite.t->width / door->sprite.size;
-    door->sprite.scale = 128 / door->sprite.size;
-    if (door->sprite.scale < 1)
-        door->sprite.scale = 1;
+void	set_sprite(t_data *data, int x, int y, t_door *door)
+{
+	int	sprite_fail;
+
+	door->sprite.pos.x = x + 0.5;
+	door->sprite.pos.y = y + 0.5;
+	if (data->num_drs % 2 == 1)
+		sprite_fail = get_texture("./textures/ducky.xpm\n",
+				data, &(door->sprite.t));
+	else
+		sprite_fail = get_texture("./textures/tree.xpm\n",
+				data, &(door->sprite.t));
+	if (sprite_fail)
+	{
+		perror("Sprite texture");
+		clean_exit(1, NULL, data);
+	}
+	door->sprite.size = door->sprite.t->height;
+	door->sprite.moves = door->sprite.t->width / door->sprite.size;
+	door->sprite.scale = 128 / door->sprite.size;
+	if (door->sprite.scale < 1)
+		door->sprite.scale = 1;
 }
 
 void	set_door(t_data *data, int x, int y)
 {
 	t_door	*door;
-	char *path;
+	char	*path;
 
 	if (data->num_drs == 24)
 		clean_exit (1, "Err: too many doors\n", data);

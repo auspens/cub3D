@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:15:07 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:43:54 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:41:43 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	char_ind(char *str, char c)
 		if (str[i] == c)
 			return (i);
 	}
-	return (-1);
+	return (i);
 }
 
 void	trim_newlines(t_data *data)
