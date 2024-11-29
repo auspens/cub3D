@@ -77,6 +77,10 @@ bonus: .bonus
 	$(CC) $(OBJS_BONUS) $(CFLAGS) -o $(NAME) $(MLX) $(LIBFT) $(INCL) -L/usr/lib -lXext -lX11 -lm -lz
 	@touch .bonus
 
+norm:
+	norminette $(SRCS)
+	norminette $(SRCS_BONUS)
+	
 clean:
 	rm -f $(OBJS) $(OBJS_BONUS)
 	@make clean -C $(MLX_PATH)

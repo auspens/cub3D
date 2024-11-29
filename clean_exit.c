@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:07:44 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:03:51 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_array(char **array)
 
 void	destroy_texture(t_data *data, t_img_data *txt)
 {
-	if(txt->mlx_img)
+	if (txt->mlx_img)
 		mlx_destroy_image(data->mlx, txt->mlx_img);
 	free(txt);
 }
@@ -51,9 +51,11 @@ void	free_data(t_data *data)
 	if (data->txt)
 		free_txt(data);
 	mlx_destroy_image(data->mlx, data->img->mlx_img);
+	free(data->img);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free(data);
 }
 
 void	clean_exit(int code, char *msg, t_data *data)
@@ -64,4 +66,3 @@ void	clean_exit(int code, char *msg, t_data *data)
 		free_data(data);
 	exit (code);
 }
-

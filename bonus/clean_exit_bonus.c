@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:09 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:01:26 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ void	clean_exit(int code, char *msg, t_data *data)
 	free (data);
 	exit (code);
 }
-

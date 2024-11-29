@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:35:23 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:43:39 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	check_line(char *line, t_data *data, int fd)
 	}
 	trimmed_line = ft_strtrim(line, " \n");
 	split_line = ft_split(trimmed_line, ' ');
-	free (line);
+	free(line);
 	free(trimmed_line);
 	if (!ft_strcmp(split_line[0], "NO") || !ft_strcmp(split_line[0], "SO")
 		|| !ft_strcmp(split_line[0], "WE") || !ft_strcmp(split_line[0], "EA"))
