@@ -6,7 +6,7 @@
 /*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 12:07:23 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:21:29 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ unsigned int	my_pixel_get(t_img_data *img, int x, int y)
 
 void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 {
+	if (!draw || !data)
+		return ;
 	if (dda.side == WEST)
 		draw->txtr = data->txt->w;
 	else if (dda.side == EAST)
@@ -40,6 +42,8 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		draw->txtr = data->txt->s;
 	if (dda.hit == 'D')
 		draw->txtr = data->doors[0].txtr;
+	if (!draw->txtr)
+		return ;
 	if (dda.side == WEST || dda.side == EAST)
 		draw->wall_x = data->player.y + draw->per_wall_dist * ray.dir.y;
 	else
