@@ -62,6 +62,7 @@ all:	$(LIBFT) $(MLX) $(NAME)
 
 $(NAME): $(OBJS) cub3d.h
 	@rm -f .bonus
+	rm -f $(OBJS_BONUS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) $(MLX) $(INCL) $(LIBFT) -L/usr/lib -lXext -lX11 -lm -lz
 
 $(LIBFT):
@@ -70,7 +71,7 @@ $(LIBFT):
 $(MLX):
 	@make -sC $(MLX_PATH)
 
-%.o: %.c Makefile cub3d.h
+%.o: %.c Makefile cub3d.h bonus/cub3d_bonus.h
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCL)
 
 bonus: .bonus
