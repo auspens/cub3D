@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:48:17 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:37:07 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_tx
 	t_img_data		*s;
 	t_img_data		*e;
 	t_img_data		*w;
-	t_img_data		*dr;
+	//t_img_data		*dr;
 }		t_tx;
 
 typedef struct draw_data {
@@ -113,6 +113,7 @@ typedef struct s_sprite
 typedef struct s_door {
 	int	x;
 	int	y;
+	t_img_data		*txtr;
 	int	state;
 	double	open_ratio;
 	time_t	tm_stamp;

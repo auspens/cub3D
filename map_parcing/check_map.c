@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 12:52:40 by eusatiko         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:52:38 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	set_door(t_data *data, int x, int y)
 {
 	t_door *door;
 
+	if (data->num_drs == 24)
+		return ;
 	door = &data->doors[data->num_drs];
 	door->x = x;
 	door->y = y;
@@ -92,6 +94,16 @@ void	set_door(t_data *data, int x, int y)
 	data->num_drs++;
 	door->sprite.pos.x = x + 0.5;
 	door->sprite.pos.y = y + 0.5;
+	char *num = ft_itoa(data->num_drs);
+	char *name = ft_strjoin("./textures/d", num);
+	char *path = ft_strjoin(name, ".xpm");
+	free(num);
+	free(name);
+	if (data->num_drs < 4)
+		get_texture(path, data, &(door->txtr));
+	else
+		get_texture("./textures/d.xpm", data, &(door->txtr));
+	free(path);
 	if (data->num_drs % 2 == 1)
 		get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
 	else

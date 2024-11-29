@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 11:35:36 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:44:22 by eleonora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ void	handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 				door = &data->doors[i];
 		}
 	}
-	if (door && door->state)
+	if (!door)
+		return ;
+	draw->txtr = door->txtr;
+	if (door->state)
 		data->sprite = &door->sprite;
 	can_see_further = check_door_state(draw, door, dda.side);
 	if (can_see_further)
@@ -102,8 +105,8 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		draw->txtr = data->txt->n;
 	else if (dda.side == SOUTH)
 		draw->txtr = data->txt->s;
-	if (dda.hit == 'D')
-		draw->txtr = data->txt->dr;
+	//if (dda.hit == 'D')
+	//	draw->txtr = data->txt->dr;
 	if (dda.side == WEST || dda.side == EAST)
 		draw->wall_x = data->player.y + draw->per_wall_dist * ray.dir.y;
 	else
