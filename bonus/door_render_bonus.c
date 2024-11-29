@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_render_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:28:10 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:17 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:43:25 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	handle_door(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 				door = &data->doors[i];
 		}
 	}
-	if (door && door->state)
+	if (!door)
+		return ;
+	draw->txtr = door->txtr;
+	if (door->state)
 		data->sprite = &door->sprite;
 	can_see_further = check_door_state(draw, door, dda.side);
 	if (can_see_further)

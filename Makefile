@@ -60,6 +60,7 @@ INCL = -I/usr/include/ \
 all:	$(LIBFT) $(MLX) $(NAME)
 
 $(NAME): $(OBJS) cub3d.h
+	@rm -f .bonus
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) $(MLX) $(INCL) $(LIBFT) -L/usr/lib -lXext -lX11 -lm -lz
 
 $(LIBFT):
@@ -76,6 +77,7 @@ bonus: .bonus
 .bonus: $(LIBFT) $(MLX) $(OBJS_BONUS) bonus/cub3d_bonus.h
 	$(CC) $(OBJS_BONUS) $(CFLAGS) -o $(NAME) $(MLX) $(LIBFT) $(INCL) -L/usr/lib -lXext -lX11 -lm -lz
 	@touch .bonus
+	rm -f $(OBJS)
 
 norm:
 	norminette $(SRCS)
@@ -88,6 +90,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	@rm -f .bonus
 	@make fclean -C $(LIBFT_PATH)
 
 re: fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:26:05 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 11:00:54 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:36:58 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ void	handle_sprite(t_data *data)
 	int				text_y;
 	unsigned int	color;
 
-	sprite = *data->sprite;
 	if (!data->sprite)
 		return ;
+	sprite = *data->sprite;
 	relpos.x = sprite.pos.x - data->player.x;
 	relpos.y = sprite.pos.y - data->player.y;
 	invdet = 1.0 / (data->plane.x * data->dir.y - data->dir.x * data->plane.y);
 	trpos.x = invdet * (data->dir.y * relpos.x - data->dir.x * relpos.y);
 	trpos.y = invdet * (-data->plane.y * relpos.x + data->plane.x * relpos.y);
 	sprite_scr_x = (int)((SCRNWIDTH / 2) * (1 + trpos.x / trpos.y));
-	//printf("trpos.x ia %f, trpos.y is %f, sprite_scr_x is %i\n", trpos.x, trpos.y, sprite_scr_x);
 	if (trpos.y <= 0)
 		return ;
-	//int scale = 4;
 	sprite_side = (int)(SCRNHEIGHT / (trpos.y)) / sprite.scale;
 	fl_offset = (int)((SCRNHEIGHT / (trpos.y)) * (1 - 1.0/sprite.scale) / 2);
 	//printf("sprite side is %i and offeset to floor is %i\n", sprite_side, fl_offset);

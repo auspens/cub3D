@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_render_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:07:23 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 	else if (dda.side == SOUTH)
 		draw->txtr = data->txt->s;
 	if (dda.hit == 'D')
-		draw->txtr = data->txt->dr;
+		draw->txtr = data->doors[0].txtr;
 	if (dda.side == WEST || dda.side == EAST)
 		draw->wall_x = data->player.y + draw->per_wall_dist * ray.dir.y;
 	else
