@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:55:17 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/01 13:23:33 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:40:38 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 500
+#  define BUFFER_SIZE 1
 # endif
 
 typedef struct s_list
@@ -77,8 +77,12 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /*gnl function*/
 char	*get_next_line(int fd);
-char	*ft_fill_bf(int fd, char *static_bf);
-char	*ft_join(char *static_bf, char *temp_bf, int bytes_read);
-char	*ft_save_line(char **static_adr);
+int		gnl_check_line(char *line);
+void	gnl_strjoin(char **dest, char *src, int *ind, int *res_size);
+char	*read_loop(int fd, char *buf, int *b_read, char **tail);
+int		gnl_memcpy(char *dest, char *src);
+char	*gnl_realloc(char *res, int *res_size);
+void	last_line(char *buf, char **tail);
+char	*gnl_calloc(int size, int num);
 
 #endif

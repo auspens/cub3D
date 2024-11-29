@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:04:21 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:07:04 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	char_ind(char *str, char c)
 		if (str[i] == c)
 			return (i);
 	}
-	return (-1);
+	return (i);
 }
 
 int	should_be_wall(t_data *data, int x, int y)

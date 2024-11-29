@@ -3,102 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleonora <eleonora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 11:43:08 by eusatiko          #+#    #+#             */
-/*   Updated: 2024/10/08 12:37:10 by eleonora         ###   ########.fr       */
+/*   Created: 2024/05/14 11:36:20 by auspensk          #+#    #+#             */
+/*   Updated: 2024/11/29 13:41:47 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
+char	*f_r(char *return_value, char **str1, char **str2)
+{
+	if (str1)
+	{
+		free(*str1);
+		*str1 = NULL;
+	}
+	if (str2)
+	{
+		free(*str2);
+		*str2 = NULL;
+	}
+	return (return_value);
+}
+
+char	*intialise(int *end_ind, int *res_size)
+{
+	char	*result;
+
+	*end_ind = 0;
+	*res_size = BUFFER_SIZE + 1;
+	result = (char *)gnl_calloc(*res_size, 1);
+	return (result);
+}
+
+char	*read_loop(int fd, char *buf, int *b_read, char **tail)
+{
+	int		end_ind;
+	int		res_size;
+	char	*result;
+
+	result = intialise(&end_ind, &res_size);
+	if (!result)
+		return (f_r(NULL, &result, &buf));
+	if (gnl_check_line(buf) == -1)
+	{
+		gnl_strjoin(&result, buf, &end_ind, &res_size);
+		*b_read = read(fd, buf, BUFFER_SIZE);
+		while ((*b_read == BUFFER_SIZE) && (gnl_check_line(buf) == -1))
+		{
+			buf[*b_read] = '\0';
+			gnl_strjoin(&result, buf, &end_ind, &res_size);
+			*b_read = read(fd, buf, BUFFER_SIZE);
+		}
+		if (*b_read == -1)
+			return (f_r(NULL, &result, &buf));
+		buf[*b_read] = '\0';
+	}
+	last_line(buf, tail);
+	gnl_strjoin(&result, buf, &end_ind, &res_size);
+	free(buf);
+	return (result);
+}
+
+void	last_line(char *buf, char **tail)
+{
+	int	ind;
+	int	ind_tail;
+
+	ind = gnl_check_line(buf);
+	if (ind == -1)
+	{
+		f_r(NULL, tail, NULL);
+		return ;
+	}
+	ind_tail = gnl_memcpy(*tail, &buf[ind + 1]);
+	tail[0][ind_tail] = '\0';
+	if (**tail == '\0')
+		f_r(NULL, tail, NULL);
+	buf [ind + 1] = '\0';
+}
+
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*static_bf;
+	static char	*tail;
+	char		*buf;
+	int			b_read;
+	char		*result;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd == -1)
 		return (NULL);
-	static_bf = ft_fill_bf(fd, static_bf);
-	if (!static_bf)
+	b_read = 0;
+	buf = gnl_calloc(BUFFER_SIZE + 1, 1);
+	if (!buf)
 		return (NULL);
-	line = ft_save_line(&static_bf);
-	if (!line)
+	if (!tail)
 	{
-		if (ft_strlen(static_bf) != 0)
-			line = ft_strjoin(static_bf, "\0");
-		free(static_bf);
-		static_bf = NULL;
+		tail = gnl_calloc(BUFFER_SIZE + 1, 1);
+		b_read = read(fd, buf, BUFFER_SIZE);
+		if (b_read <= 0 || !tail)
+			return (f_r(NULL, &tail, &buf));
 	}
-	return (line);
-}
-
-char	*ft_fill_bf(int fd, char *static_bf)
-{
-	char	*temp_bf;
-	int		bytes_read;
-
-	temp_bf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!temp_bf)
-	{
-		free(static_bf);
-		return (NULL);
-	}
-	temp_bf[0] = '\0';
-	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(temp_bf, '\n'))
-	{
-		bytes_read = read(fd, temp_bf, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free(static_bf);
-			static_bf = NULL;
-			break ;
-		}
-		static_bf = ft_join(static_bf, temp_bf, bytes_read);
-	}
-	free(temp_bf);
-	return (static_bf);
-}
-
-char	*ft_join(char *static_bf, char *temp_bf, int bytes_read)
-{
-	char	*joined;
-
-	if (!static_bf)
-		static_bf = ft_strdup("");
-	if (!static_bf)
-		return (NULL);
-	temp_bf[bytes_read] = '\0';
-	joined = ft_strjoin(static_bf, temp_bf);
-	free(static_bf);
-	return (joined);
-}
-
-char	*ft_save_line(char **static_adr)
-{
-	int		i;
-	char	*line;
-	char	*remainder;
-
-	i = 0;
-	while (*(*static_adr + i) != '\0')
-	{
-		if (*(*static_adr + i) == '\n')
-			break ;
-		i++;
-	}
-	line = NULL;
-	if (i != (int)ft_strlen(*static_adr))
-		line = malloc((i + 2) * sizeof(char));
-	if (!line)
-		return (NULL);
-	ft_strlcpy(line, *static_adr, i + 2);
-	if (*(static_adr) + i + 1)
-		remainder = ft_strdup(*(static_adr) + i + 1);
 	else
-		remainder = NULL;
-	free(*static_adr);
-	*static_adr = remainder;
-	return (line);
+		b_read = gnl_memcpy(buf, tail);
+	buf[b_read] = '\0';
+	result = read_loop(fd, buf, &b_read, &tail);
+	if (result == NULL)
+		f_r(NULL, &tail, NULL);
+	return (result);
 }
