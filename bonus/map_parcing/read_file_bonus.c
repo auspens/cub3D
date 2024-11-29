@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/29 12:25:43 by auspensk         ###   ########.fr       */
-=======
-/*   Updated: 2024/11/29 11:51:04 by eusatiko         ###   ########.fr       */
->>>>>>> origin/final
+/*   Updated: 2024/11/29 13:04:02 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
