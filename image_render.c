@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 11:44:12 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:21:36 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ void	calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray)
 		draw->txtr_x = draw->txtr->width - draw->txtr_x - 1;
 }
 
-void	draw_line_to_img(t_data *data, int x, t_draw_data *draw)
+void	draw_line_to_img(t_data *data, int x, t_draw_data *draw, int y)
 {
-	int	y;
 	int	line_lowest_p;
 	int	line_highest_p;
 	int	color;
 
-	y = -1;
 	line_highest_p = SCRNHEIGHT / 2 - draw->line_height / 2;
 	line_lowest_p = SCRNHEIGHT / 2 + draw->line_height / 2;
 	draw->step = 1.0 * draw->txtr->height / draw->line_height;

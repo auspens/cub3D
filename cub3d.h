@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/05 16:56:18 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:44:34 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ void		get_input(t_data *data, int fd, int size);
 void		clean_exit(int code, char *msg, t_data *data);
 void		free_data(t_data *data);
 void		free_array(char **array);
-void		exit_at_reading_input(t_data *data, int fd, char **arr, char *msg);
-
 
 /*check_map*/
 void		check_valid_map(t_data *data);
@@ -133,11 +131,15 @@ void		check_valid_map(t_data *data);
 /*draw map*/
 void		draw_frame(t_data *md);
 
+/*draw_map_inits*/
+t_ray		init_ray(t_data *md, int x);
+t_dda		init_dda(t_coord player);
+
 /*map_utils*/
-void		map_error(int fd, t_data *data, char *line, int error);
+void		map_error(int fd, t_data *data, char *line);
 
 /*image_render*/
-void		draw_line_to_img(t_data *data, int x, t_draw_data *draw);
+void		draw_line_to_img(t_data *data, int x, t_draw_data *draw, int y);
 void		calc_wall_txtr_x(t_dda dda, t_draw_data *draw, t_data *data, t_ray ray);
 
 /*utils*/

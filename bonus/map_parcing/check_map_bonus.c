@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:44:51 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:43:42 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:16:52 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,6 @@ void	check_char_value(t_data *data, int x, int y, char c)
 		else if (c != '0' && c != '1' && c != ' ')
 			clean_exit(1, "Err: not allowed chars in map\n", data);
 	}
-}
-
-void	set_door(t_data *data, int x, int y)
-{
-	t_door	*door;
-
-	door = &data->doors[data->num_drs];
-	door->x = x;
-	door->y = y;
-	door->state = 0;
-	door->open_ratio = 0;
-	door->tm_stamp = 0;
-	data->num_drs++;
-	door->sprite.pos.x = x + 0.5;
-	door->sprite.pos.y = y + 0.5;
-	if (data->num_drs % 2 == 1)
-		get_texture("./textures/ducky.xpm\n", data, &(door->sprite.t));
-	else
-		get_texture("./textures/tree.xpm\n", data, &(door->sprite.t));
-	door->sprite.size = door->sprite.t->height;
-	door->sprite.moves = door->sprite.t->width / door->sprite.size;
-	door->sprite.scale = 128 / door->sprite.size;
-	if (door->sprite.scale < 1)
-		door->sprite.scale = 1;
 }
 
 void	check_valid_map(t_data *data)

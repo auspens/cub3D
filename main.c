@@ -6,12 +6,11 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:51:01 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 10:45:59 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:51:00 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	timer(void *data_passed)
 {
@@ -27,7 +26,6 @@ int	timer(void *data_passed)
 	return (0);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -39,6 +37,11 @@ int	main(int argc, char **argv)
 	else
 		clean_exit(1, "Erorr: incorrect number of arguments\n", NULL);
 	data = init_data();
+	if (!data)
+	{
+		close(fd);
+		clean_exit(1, "Failed to init data\n", NULL);
+	}
 	get_input(data, fd, 100);
 	close(fd);
 	check_valid_map(data);

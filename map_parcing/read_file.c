@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 10:43:39 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:44:41 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	open_mapfile(char *path)
 	return (fd);
 }
 
-
 int	read_texture(char **lines, t_data *data, int fd)
 {
 	int	res;
@@ -45,9 +44,10 @@ int	read_texture(char **lines, t_data *data, int fd)
 		res = get_texture(lines[1], data, &(data->txt->w));
 	if (res || lines[2])
 	{
+		perror(lines[1]);
 		free_array(lines);
 		close(fd);
-		clean_exit(1, "Err: incorrect input in textures\n", data);
+		clean_exit(1, NULL, data);
 	}
 	free_array(lines);
 	return (1);
@@ -109,7 +109,7 @@ void	get_map(t_data *data, char *line, int fd, int size)
 
 	newmap = ft_calloc(size + 1, sizeof(char *));
 	if (!newmap)
-		map_error(fd, data, line, -1);
+		map_error(fd, data, line);
 	idx = -1;
 	if (data->map)
 	{

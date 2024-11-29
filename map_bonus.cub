@@ -1,9 +1,10 @@
+
+
+
 NO ./textures/kandinsky-circles.xpm
 
      SO    ./textures/pavlin.xpm
-C 170,188,214
-
-
+C 170,188,251
 
 EA        ./textures/space.xpm
 WE ./textures/kandinsky-snow.xpm
@@ -17,7 +18,7 @@ F         109,151,121
  11D000000000000D1
 11110000000011111111
 10000001111111
-1001D100011
+1001D100011    
 100111001111
 111111111
 

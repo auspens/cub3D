@@ -26,6 +26,7 @@ SRCS = map_parcing/check_map.c \
 		map_utils.c \
 		texture_utils.c \
 		draw_map.c \
+		draw_map_inits.c \
 		hooks.c \
 		player_movements.c
 
@@ -78,9 +79,8 @@ bonus: .bonus
 	@touch .bonus
 
 norm:
-	norminette $(SRCS)
-	norminette $(SRCS_BONUS)
-	
+	norminette $(SRCS) $(SRCS_BONUS) libft/
+
 clean:
 	rm -f $(OBJS) $(OBJS_BONUS)
 	@make clean -C $(MLX_PATH)

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:04 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:14:27 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,40 @@ void	set_player(t_data *data, int x, int y)
 	data->map[y][x] = '0';
 }
 
+void	set_sprite(t_data *data, int x, int y, t_door *door)
+{
+	int		sprite_fail;
+
+	door->sprite.pos.x = x + 0.5;
+	door->sprite.pos.y = y + 0.5;
+	if (data->num_drs % 2 == 1)
+		sprite_fail = get_texture("./textures/ducky.xpm\n",
+				data, &(door->sprite.t));
+	else
+		sprite_fail = get_texture("./textures/tree.xpm\n",
+				data, &(door->sprite.t));
+	if (sprite_fail)
+	{
+		perror("Failed to read sprite texture");
+		clean_exit(1, NULL, data);
+	}
+	door->sprite.size = door->sprite.t->height;
+	door->sprite.moves = door->sprite.t->width / door->sprite.size;
+	door->sprite.scale = 128 / door->sprite.size;
+	if (door->sprite.scale < 1)
+		door->sprite.scale = 1;
+}
+
+void	set_door(t_data *data, int x, int y)
+{
+	t_door	*door;
+
+	door = &data->doors[data->num_drs];
+	door->x = x;
+	door->y = y;
+	door->state = 0;
+	door->open_ratio = 0;
+	door->tm_stamp = 0;
+	data->num_drs++;
+	set_sprite(data, x, y, door);
+}

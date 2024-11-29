@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:01:38 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:24:16 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ void	draw_line_to_img(t_data *data, int x, t_draw_data *draw, int y)
 			my_pixel_put(data->img, x, y, data->color_floor);
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:43:59 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:25:43 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_mapfile(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error: ");
+		perror("Error");
 		clean_exit(1, NULL, NULL);
 	}
 	return (fd);
@@ -44,9 +44,10 @@ int	read_texture(char **lines, t_data *data, int fd)
 		res = get_texture(lines[1], data, &(data->txt->w));
 	if (res || lines[2])
 	{
+		perror(lines[1]);
 		free_array(lines);
 		close(fd);
-		clean_exit(1, "Err: incorrect input in textures\n", data);
+		clean_exit(1, NULL, data);
 	}
 	free_array(lines);
 	return (1);
@@ -99,7 +100,11 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
-	get_texture("./textures/d1.xpm\n", data, &(data->txt->dr));
+	if (get_texture("./textures/d1.xpm\n", data, &(data->txt->dr)))
+	{
+		perror("Failed to open door texture");
+		clean_exit(1, NULL, data);
+	}
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)

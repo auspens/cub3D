@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:58:02 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 11:01:26 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:56:42 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	free_array(char **array)
 
 void	destroy_texture(t_data *data, t_img_data *txt)
 {
-	mlx_destroy_image(data->mlx, txt->mlx_img);
+	if (txt->mlx_img)
+		mlx_destroy_image(data->mlx, txt->mlx_img);
 	free(txt);
 }
 
@@ -56,10 +57,12 @@ void	free_data(t_data *data)
 		free_txt(data);
 	mlx_destroy_image(data->mlx, data->img->mlx_img);
 	free (data->img);
-	mlx_destroy_image(data->mlx, data->m_map.mlx_img);
+	if (data->m_map.mlx_img)
+		mlx_destroy_image(data->mlx, data->m_map.mlx_img);
 	while (data->doors[++i].sprite.t)
 	{
-		mlx_destroy_image(data->mlx, data->doors[i].sprite.t->mlx_img);
+		if (data->doors[i].sprite.t->mlx_img)
+			mlx_destroy_image(data->mlx, data->doors[i].sprite.t->mlx_img);
 		free(data->doors[i].sprite.t);
 	}
 	mlx_destroy_window(data->mlx, data->mlx_win);

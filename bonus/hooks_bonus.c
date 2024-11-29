@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:44:43 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:25:10 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	key_press(int key, void *data_passed)
 	return (0);
 }
 
-
 int	mouse_move(int x, int y, void *data_passed)
 {
 	t_data	*data;
@@ -66,4 +65,3 @@ void	set_hooks(t_data *data)
 	mlx_hook(data->mlx_win, 02, 1L << 0, key_press, (void *)data);
 	mlx_hook(data->mlx_win, 06, 1L << 6, mouse_move, (void *)data);
 }
-

@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:49:20 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:38:50 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:23:59 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ void	set_hooks(t_data *data)
 	mlx_hook(data->mlx_win, 17, 1L << 17, win_close, (void *)data);
 	mlx_hook(data->mlx_win, 02, 1L << 0, key_press, (void *)data);
 }
-

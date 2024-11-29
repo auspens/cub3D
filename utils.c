@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/13 10:43:07 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:49:57 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,24 @@ t_data	*init_data(void)
 	t_data	*data;
 
 	data = ft_calloc (1, sizeof(t_data));
+	if (!data)
+		return (NULL);
 	data->mlx = mlx_init();
+	if (!data->mlx)
+	{
+		free_data(data);
+		return (NULL);
+	}
 	data->mlx_win = mlx_new_window(data->mlx, SCRNWIDTH, SCRNHEIGHT, "cub3D");
 	data->img = new_img(data);
 	data->player.x = 0;
 	data->player.y = 0;
 	data->txt = ft_calloc(4, sizeof(t_img_data *));
+	if (!data->mlx_win || !data->img || !data->txt)
+	{
+		free_data(data);
+		return (NULL);
+	}
 	return (data);
 }
 
