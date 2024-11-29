@@ -6,7 +6,7 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 12:16:08 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:02:24 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_tx
 	t_img_data		*s;
 	t_img_data		*e;
 	t_img_data		*w;
-	t_img_data		*dr;
 }		t_tx;
 
 typedef struct draw_data {
@@ -115,6 +114,7 @@ typedef struct s_door {
 	int	y;
 	int	state;
 	double	open_ratio;
+	t_img_data		*txtr;
 	time_t	tm_stamp;
 	t_sprite	sprite;
 }	t_door;

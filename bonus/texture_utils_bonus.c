@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:45:41 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:45:27 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:42:43 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,4 @@ int	get_texture(char *addr, t_data *data, t_img_data **img_data)
 			&((*img_data)->img_line_len), &((*img_data)->img_endian));
 	return (0);
 }
+

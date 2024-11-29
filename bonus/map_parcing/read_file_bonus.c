@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/29 12:25:43 by auspensk         ###   ########.fr       */
+=======
+/*   Updated: 2024/11/29 11:51:04 by eusatiko         ###   ########.fr       */
+>>>>>>> origin/final
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +104,6 @@ void	get_input(t_data *data, int fd, int size)
 		line = get_next_line(fd);
 	}
 	get_map(data, line, fd, size);
-	if (get_texture("./textures/d1.xpm\n", data, &(data->txt->dr)))
-	{
-		perror("Failed to open door texture");
-		clean_exit(1, NULL, data);
-	}
 }
 
 void	get_map(t_data *data, char *line, int fd, int size)

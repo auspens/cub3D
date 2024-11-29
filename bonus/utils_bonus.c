@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:41:22 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 15:45:35 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:51:39 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_data	*init_data(void)
 	data->img = new_img(data);
 	data->player.x = 0;
 	data->player.y = 0;
-	data->txt = ft_calloc(5, sizeof(t_img_data *));
+	data->txt = ft_calloc(4, sizeof(t_img_data *));
 	data->redraw = 0;
 	data->num_drs = 0;
 	data->can_open = NULL;
