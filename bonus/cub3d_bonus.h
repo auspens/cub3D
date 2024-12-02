@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eusatiko <eusatiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:09:47 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 13:02:24 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:25:45 by eusatiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,18 @@ typedef struct s_sprite
   int moves;
   int scale;
 }	t_sprite;
+
+typedef struct s_draw_sprite
+{
+	int		sprite_scr_x;
+	int		sprite_side;
+	int		fl_offset;
+	int		move;
+	int		start_y;
+	int		end_y;
+	int		start_x;
+	int		end_x;
+}	t_draw_sprite;
 
 typedef struct s_door {
 	int	x;
