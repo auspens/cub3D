@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing_utils.c                                    :+:      :+:    :+:   */
+/*   parcing_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:15:07 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/25 12:12:16 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:43:05 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	char_ind(char *str, char c)
 
@@ -23,7 +23,7 @@ int	char_ind(char *str, char c)
 		if (str[i] == c)
 			return (i);
 	}
-	return (-1);
+	return (i);
 }
 
 void	trim_newlines(t_data *data)
@@ -36,7 +36,15 @@ void	trim_newlines(t_data *data)
 	while (data->map[++y])
 	{
 		if (map_ended && data->map[y][0] != '\n')
-			clean_exit(1, "Err: newline inside the map\n", data);
+		{
+			while (data->map[y])
+			{
+				free(data->map[y]);
+				data->map[y] = NULL;
+				y++;
+			}
+			clean_exit(1, "Error parcing the map\n", data);
+		}
 		if (data->map[y][0] == '\n')
 		{
 			free(data->map[y]);

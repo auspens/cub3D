@@ -1,16 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_map.c                                         :+:      :+:    :+:   */
+/*   draw_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:43:36 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/29 11:30:38 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:44:29 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+
+t_ray	init_ray(t_data *md, int x)
+{
+	t_ray	ray;
+	double	rel_pos;
+
+	rel_pos = 2 * x / (double)SCRNWIDTH - 1;
+	ray.dir.x = md->dir.x + md->plane.x * rel_pos;
+	ray.dir.y = md->dir.y + md->plane.y * rel_pos;
+	ray.origin.x = md->player.x;
+	ray.origin.y = md->player.y;
+	return (ray);
+}
+
+t_dda	init_dda(t_coord player)
+{
+	t_dda	dda;
+
+	dda.delta_x = 0;
+	dda.delta_y = 0;
+	dda.map_x = (int)player.x;
+	dda.map_y = (int)player.y;
+	dda.side = 0;
+	dda.side_dist_x = 0;
+	dda.side_dist_y = 0;
+	dda.step_x = 1;
+	dda.step_y = 1;
+	dda.hit = 0;
+	return (dda);
+}
 
 void	get_deltas(t_ray ray, t_dda *dda)
 {
@@ -38,7 +68,6 @@ void	get_deltas(t_ray ray, t_dda *dda)
 
 void	perform_dda(t_dda *dda, char **map)
 {
-	dda->hit = 0;
 	while (dda->hit == 0)
 	{
 		if (dda->side_dist_x < dda->side_dist_y)
@@ -60,35 +89,31 @@ void	perform_dda(t_dda *dda, char **map)
 				dda->side = SOUTH;
 		}
 		if (map[dda->map_y][dda->map_x] != '0')
-			dda->hit = 1;
+			dda->hit = map[dda->map_y][dda->map_x];
 	}
 }
 
-void	calc_line_height(t_dda dda, t_draw_data *draw_data)
-{
-	if (dda.side == WEST || dda.side == EAST)
-		draw_data->per_wall_dist = dda.side_dist_x - dda.delta_x;
-	else
-		draw_data->per_wall_dist = dda.side_dist_y - dda.delta_y;
-	draw_data->line_height = (int)(SCRNHEIGHT / draw_data->per_wall_dist);
-}
-
-void	draw_frame(t_data *md)
+void	draw_frame(t_data *data)
 {
 	t_ray		ray_vect;
 	t_dda		dda;
 	int			x;
 	t_draw_data	draw_data;
 
+	data->can_open = NULL;
+	data->sprite = NULL;
+	data->redraw = 0;
 	x = -1;
 	while (++x < SCRNWIDTH)
 	{
-		ray_vect = init_ray(md, x);
-		dda = init_dda(md->player);
+		ray_vect = init_ray(data, x);
+		dda = init_dda(data->player);
 		get_deltas(ray_vect, &dda);
-		perform_dda(&dda, md->map);
+		perform_dda(&dda, data->map);
 		calc_line_height(dda, &draw_data);
-		calc_wall_txtr_x(dda, &draw_data, md, ray_vect);
-		draw_line_to_img(md, x, &draw_data, -1);
+		calc_wall_txtr_x(dda, &draw_data, data, ray_vect);
+		draw_line_to_img(data, x, &draw_data, -1);
+		data->buffer[x] = draw_data.per_wall_dist;
 	}
+	handle_sprite(data);
 }

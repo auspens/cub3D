@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:05:04 by auspensk          #+#    #+#             */
-/*   Updated: 2024/12/09 11:24:42 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:26:45 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	open_mapfile(char *path)
 {
@@ -23,7 +23,7 @@ int	open_mapfile(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error: ");
+		perror("Error");
 		clean_exit(1, NULL, NULL);
 	}
 	return (fd);
@@ -64,7 +64,7 @@ int	check_line(char *line, t_data *data, int fd)
 	}
 	trimmed_line = ft_strtrim(line, " \n");
 	split_line = ft_split(trimmed_line, ' ');
-	free(line);
+	free (line);
 	free(trimmed_line);
 	if (!ft_strcmp(split_line[0], "NO") || !ft_strcmp(split_line[0], "SO")
 		|| !ft_strcmp(split_line[0], "WE") || !ft_strcmp(split_line[0], "EA"))
@@ -108,7 +108,7 @@ void	get_map(t_data *data, char *line, int fd, int size)
 
 	newmap = ft_calloc(size + 1, sizeof(char *));
 	if (!newmap)
-		map_error(fd, data, line);
+		newmap_error(fd, data, line);
 	idx = -1;
 	if (data->map)
 	{

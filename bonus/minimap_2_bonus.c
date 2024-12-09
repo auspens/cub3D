@@ -6,11 +6,11 @@
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:58:40 by auspensk          #+#    #+#             */
-/*   Updated: 2024/11/18 12:18:05 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:45:01 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	check_char_and_draw(t_coord coord, t_data *data, char *nl, char value)
 {

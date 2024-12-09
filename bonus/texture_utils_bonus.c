@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_utils.c                                    :+:      :+:    :+:   */
+/*   texture_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auspensk <auspensk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:45:41 by auspensk          #+#    #+#             */
-/*   Updated: 2024/12/09 11:22:49 by auspensk         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:25:41 by auspensk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-int	get_txt_color(t_img_data img, t_sides side, int x, int y)
-{
-	(void)img;
-	(void)x;
-	(void)y;
-	if (side == NORTH)
-		return (gen_trgb(255, 27, 215, 196));
-	if (side == SOUTH)
-		return (gen_trgb(255, 255, 171, 0));
-	if (side == EAST)
-		return (gen_trgb(255, 211, 102, 250));
-	return (gen_trgb(255, 33, 222, 146));
-}
+#include "cub3d_bonus.h"
 
 int	get_texture(char *addr, t_data *data, t_img_data **img_data)
 {
@@ -43,8 +29,8 @@ int	get_texture(char *addr, t_data *data, t_img_data **img_data)
 	free(tr_addr);
 	if (!(*img_data)->mlx_img)
 		return (1);
-	(*img_data)->img_addr = mlx_get_data_addr((*img_data)->mlx_img,
-			&((*img_data)->bpp),
+	(*img_data)->img_addr = mlx_get_data_addr
+		((*img_data)->mlx_img, &((*img_data)->bpp),
 			&((*img_data)->img_line_len), &((*img_data)->img_endian));
 	return (0);
 }
