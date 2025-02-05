@@ -57,15 +57,21 @@ orientation of the player. Bonus map allows another character: D (door).
    git clone https://github.com/eluscha/cub3D.git cub3D
    cd cub3D
    ```
+   
+2. If the contents of the minilibx-linux didn't download, you need to do it manually:
 
-2. For simple version (without sprites, no mouse movement, etc.):
+   ```bash
+   git submodule update --init --recursive
+   ```
+   
+3. For simple version (without sprites, no mouse movement, etc.):
 
    ```bash
    make
    ./cub3D <map_name>
    ```
 
-3. For bonus features (advent calender):
+4. For bonus features (advent calender):
 
    ```bash
    make bonus
